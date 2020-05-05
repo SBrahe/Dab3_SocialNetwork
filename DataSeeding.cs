@@ -146,32 +146,31 @@ namespace Dab_SocialNetwork
 
             var circleuser1 = _userService.GetByName("Jodle Birge");
             circleuser1.Circles.Add(_circles[0]);
-            _userService.Update("Morten", circleuser1);
+            _userService.Update("Jodle Birge", circleuser1);
 
             var circleuser2 = _userService.GetByName("Ib Grønbech");
             circleuser2.Circles.Add(_circles[0]);
             circleuser2.Circles.Add(_circles[1]);
             circleuser2.Circles.Add(_circles[2]);
-
-            _userService.Update("Morten", circleuser2);
+            _userService.Update("Ib Grønbech", circleuser2);
 
             var circleuser3 = _userService.GetByName("Toke");
             circleuser3.Circles.Add(_circles[3]);
-            _userService.Update("Morten", circleuser3);
+            _userService.Update("Toke", circleuser3);
 
             var circleuser4 = _userService.GetByName("Finn Nørbygaard");
             circleuser4.Circles.Add(_circles[0]);
             circleuser4.Circles.Add(_circles[2]);
-            _userService.Update("Morten", circleuser4);
+            _userService.Update("Finn Nørbygaard", circleuser4);
 
             var circleuser5 = _userService.GetByName("GrauballeManden");
             circleuser5.Circles.Add(_circles[3]);
-            _userService.Update("Morten", circleuser5);
+            _userService.Update("GrauballeManden", circleuser5);
 
             var circleuser6 = _userService.GetByName("Marianne-Birgitte");
             circleuser6.Circles.Add(_circles[1]);
             circleuser6.Circles.Add(_circles[3]);
-            _userService.Update("Morten", circleuser6);
+            _userService.Update("Marianne-Birgitte", circleuser6);
 
         }
 
