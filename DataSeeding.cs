@@ -18,17 +18,15 @@ namespace Dab_SocialNetwork
 
         public DataSeeding()
         {
-            _userService=new UserService();
-            _postService=new PostService();
+            _userService = new UserService();
+            _postService = new PostService();
         }
 
         //-----------------------Empty Database------------------------//
         public void EmptyDatabase()
         {
-            
             _userService.Empty();
             _postService.Empty();
-
         }
 
         //-----------------------User seeding------------------------//
@@ -39,8 +37,8 @@ namespace Dab_SocialNetwork
                 new User
                 {
                     Name = "Jodle Birge",
-                    Gender="Mand",
-                    Age= 49,
+                    Gender = "Mand",
+                    Age = 49,
                     Email = "JodleBirge@Toppen.dk",
                     MobileNum = "12345678",
                     Circles = new List<Circle>(),
@@ -51,8 +49,8 @@ namespace Dab_SocialNetwork
                 new User
                 {
                     Name = "Ib Grønbech",
-                    Gender="Mand",
-                    Age= 42,
+                    Gender = "Mand",
+                    Age = 42,
                     Email = "Ibberen@NyTrailer.dk",
                     MobileNum = "87654321",
                     Circles = new List<Circle>(),
@@ -63,8 +61,8 @@ namespace Dab_SocialNetwork
                 new User
                 {
                     Name = "Toke",
-                    Gender="Mand",
-                    Age= 32,
+                    Gender = "Mand",
+                    Age = 32,
                     Email = "Trælstype@Ditmer.dk",
                     MobileNum = "80000085",
                     Circles = new List<Circle>(),
@@ -75,8 +73,8 @@ namespace Dab_SocialNetwork
                 new User
                 {
                     Name = "Finn Nørbygaard",
-                    Gender="Mand",
-                    Age= 55,
+                    Gender = "Mand",
+                    Age = 55,
                     Email = "Ruineret@Krisetid.dk",
                     MobileNum = "00000000",
                     Circles = new List<Circle>(),
@@ -87,8 +85,8 @@ namespace Dab_SocialNetwork
                 new User
                 {
                     Name = "GrauballeManden",
-                    Gender="Mand",
-                    Age= 740,
+                    Gender = "Mand",
+                    Age = 740,
                     Email = "SikkeEnDag@Mosemail.dk",
                     MobileNum = "22445543",
                     Circles = new List<Circle>(),
@@ -99,8 +97,8 @@ namespace Dab_SocialNetwork
                 new User
                 {
                     Name = "Marianne-Birgitte",
-                    Gender="Kvinde",
-                    Age= 32,
+                    Gender = "Kvinde",
+                    Age = 32,
                     Email = "Marianne-Birgitte@Marianne-Birgitte.dk",
                     MobileNum = "96700012",
                     Circles = new List<Circle>(),
@@ -113,7 +111,6 @@ namespace Dab_SocialNetwork
             {
                 _userService.Create(user);
             }
-
         }
 
         //-----------------------Circle seeding------------------------//
@@ -140,7 +137,7 @@ namespace Dab_SocialNetwork
 
                 new Circle
                 {
-                    Name="UFO-Kaptajnerne"
+                    Name = "UFO-Kaptajnerne"
                 }
             };
 
@@ -171,7 +168,6 @@ namespace Dab_SocialNetwork
             circleuser6.Circles.Add(_circles[1]);
             circleuser6.Circles.Add(_circles[3]);
             _userService.Update("Marianne-Birgitte", circleuser6);
-
         }
 
         //-----------------------FollowedUser seeding------------------------//
@@ -183,7 +179,7 @@ namespace Dab_SocialNetwork
                 _userService.GetByName("Ib Grønbech")
             };
 
-            _userService.Update("JodleBirge",followuser1);
+            _userService.Update("JodleBirge", followuser1);
 
             var followuser2 = _userService.GetByName("Ib Grønbech");
             followuser2.FollowedUsers = new List<User>()
@@ -209,8 +205,6 @@ namespace Dab_SocialNetwork
             };
 
             _userService.Update("Marianne-Birgitte", followuser4);
-
-
         }
 
         //-----------------------BlockedUser seeding------------------------//
@@ -232,7 +226,6 @@ namespace Dab_SocialNetwork
             };
 
             _userService.Update("GrauballeManden", blockuser2);
-
         }
 
         //----------------------Post and comment seeding------------------------//
@@ -244,11 +237,11 @@ namespace Dab_SocialNetwork
                 {
                     Author = _users[0],
                     IsPublic = false,
-                    //PostFeeling = 
+                    PostType = PostType.Text,
                     PostText = "Peter lå i telt",
                     ShownCircles = new List<Circle> {_circles[0]},
                     Created = DateTime.Now,
-                    Comment = new List<Comment>()
+                    Comments = new List<Comment>()
                     {
                         new Comment()
                         {
@@ -263,7 +256,6 @@ namespace Dab_SocialNetwork
                             Content = "Ole lå iii Ole lå iii",
                             DateAndTime = DateTime.Now
                         }
-
                     }
                 },
 
@@ -271,11 +263,11 @@ namespace Dab_SocialNetwork
                 {
                     Author = _users[1],
                     IsPublic = false,
-                    //PostFeeling = 
+                    PostType = PostType.Text,
                     PostText = "Jeg har fået trailer og mor har fået mave på",
                     ShownCircles = new List<Circle> {_circles[0]},
                     Created = DateTime.Now,
-                    Comment = new List<Comment>()
+                    Comments = new List<Comment>()
                     {
                         new Comment()
                         {
@@ -284,8 +276,6 @@ namespace Dab_SocialNetwork
                                 "Din post har ikke færdighederne jeg forventer, men du har en rigtig fin personlighed",
                             DateAndTime = DateTime.Now
                         },
-
-
                     }
                 },
 
@@ -293,22 +283,21 @@ namespace Dab_SocialNetwork
                 {
                     Author = _users[2],
                     IsPublic = true,
+                    PostType = PostType.Feeling,
                     PostFeeling = Feeling.Jævnt_Utilfreds,
-                    //Content = "",
                     ShownCircles = new List<Circle> {_circles[3]},
                     Created = DateTime.Now,
-
                 },
 
                 new Post()
                 {
                     Author = _users[3],
                     IsPublic = false,
-                    //PostFeeling = "Text",
+                    PostType = PostType.Text,
                     PostText = "Vi på vejen igen",
                     ShownCircles = new List<Circle> {_circles[2]},
                     Created = DateTime.Now,
-                    Comment = new List<Comment>()
+                    Comments = new List<Comment>()
                     {
                         new Comment()
                         {
@@ -316,7 +305,6 @@ namespace Dab_SocialNetwork
                             Content = "*Smiler*",
                             DateAndTime = DateTime.Now
                         },
-
                     }
                 },
 
@@ -324,11 +312,11 @@ namespace Dab_SocialNetwork
                 {
                     Author = _users[4],
                     IsPublic = false,
+                    PostType = PostType.Feeling,
                     PostFeeling = Feeling.Gammel,
-                    //PostText = 
                     ShownCircles = new List<Circle> {_circles[3]},
                     Created = DateTime.Now,
-                    Comment = new List<Comment>()
+                    Comments = new List<Comment>()
                     {
                         new Comment()
                         {
@@ -339,7 +327,6 @@ namespace Dab_SocialNetwork
                                 "Mange var vrede over, at nogen skulle fortelle dem, at de ikke kunne spise deres egen frugt. Det er den samme kortsigtighed vi ser i år.",
                             DateAndTime = DateTime.Now
                         },
-
                     }
                 },
 
@@ -347,12 +334,12 @@ namespace Dab_SocialNetwork
                 {
                     Author = _users[5],
                     IsPublic = true,
-                    //PostFeeling = "Text",
+                    PostType = PostType.Text,
                     PostText =
                         "Jeg synes vi som samfund bør fordømme enhver kultur/samfund, hvor det praktiseres at voksne legalt kan gifte sig med børn.",
                     ShownCircles = new List<Circle> {_circles[1]},
                     Created = DateTime.Now,
-                    Comment = new List<Comment>()
+                    Comments = new List<Comment>()
                     {
                         new Comment()
                         {
@@ -362,7 +349,6 @@ namespace Dab_SocialNetwork
                         },
                     }
                 }
-
             };
 
             foreach (var post_ in _posts)
@@ -370,9 +356,5 @@ namespace Dab_SocialNetwork
                 _postService.Create(post_);
             }
         }
-
-
-
-
     }
 }
