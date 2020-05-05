@@ -177,6 +177,39 @@ namespace Dab_SocialNetwork
         //-----------------------FollowedUser seeding------------------------//
         public void FollowedUserSeed()
         {
+            var followuser1 = _userService.GetByName("Jodle Birge");
+            followuser1.FollowedUsers = new List<User>()
+            {
+                _userService.GetByName("Ib Grønbech")
+            };
+
+            _userService.Update("Jodle Birge",followuser1);
+
+            var followuser2 = _userService.GetByName("Ib Grønbech");
+            followuser2.FollowedUsers = new List<User>()
+            {
+                _userService.GetByName("Jodle Birge")
+            };
+
+            _userService.Update("Ib Grønbech", followuser2);
+
+
+            var followuser3 = _userService.GetByName("Finn Nørbygaard");
+            followuser3.FollowedUsers = new List<User>()
+            {
+                _userService.GetByName("Jodle Birge")
+            };
+
+            _userService.Update("Finn Nørbygaard", followuser3);
+
+            var followuser4 = _userService.GetByName("Marianne-Birgitte");
+            followuser1.FollowedUsers = new List<User>()
+            {
+                _userService.GetByName("GrauballeManden")
+            };
+
+            _userService.Update("Marianne-Birgitte", followuser4);
+
 
         }
 
@@ -184,20 +217,158 @@ namespace Dab_SocialNetwork
 
         public void BlockedUserSeed()
         {
+            var blockuser1 = _userService.GetByName("Jodle Birge");
+            blockuser1.BlockedUsers = new List<User>()
+            {
+                _userService.GetByName("´Toke")
+            };
+
+            _userService.Update("Jodle Birge", blockuser1);
+
+            var blockuser2 = _userService.GetByName("GrauballeManden");
+            blockuser2.BlockedUsers = new List<User>()
+            {
+                _userService.GetByName("Finn Nørbygaard")
+            };
+
+            _userService.Update("GrauballeManden", blockuser2);
 
         }
 
-        //----------------------Post seeding------------------------//
+        //----------------------Post and comment seeding------------------------//
         public void PostSeed()
         {
+            _posts = new List<Post>()
+            {
+                new Post()
+                {
+                    Author = _users[0],
+                    IsPublic = false,
+                    //PostFeeling = 
+                    PostText = "Peter lå i telt",
+                    ShownCircles = new List<Circle> {_circles[0]},
+                    Created = DateTime.Now,
+                    Comment = new List<Comment>()
+                    {
+                        new Comment()
+                        {
+                            Author = _users[1],
+                            Content = "Og Ole lå i campingsvogn",
+                            DateAndTime = DateTime.Now
+                        },
 
-        }
+                        new Comment()
+                        {
+                            Author = _users[0],
+                            Content = "Ole lå iii Ole lå iii",
+                            DateAndTime = DateTime.Now
+                        }
 
-        //-----------------------Comment seeding------------------------//
+                    }
+                },
 
-        public void CommentSeed()
-        {
+                new Post()
+                {
+                    Author = _users[1],
+                    IsPublic = false,
+                    //PostFeeling = 
+                    PostText = "Jeg har fået trailer og mor har fået mave på",
+                    ShownCircles = new List<Circle> {_circles[0]},
+                    Created = DateTime.Now,
+                    Comment = new List<Comment>()
+                    {
+                        new Comment()
+                        {
+                            Author = _users[2],
+                            Content =
+                                "Din post har ikke færdighederne jeg forventer, men du har en rigtig fin personlighed",
+                            DateAndTime = DateTime.Now
+                        },
 
+
+                    }
+                },
+
+                new Post()
+                {
+                    Author = _users[2],
+                    IsPublic = true,
+                    PostFeeling = Feeling.Jævnt_Utilfreds,
+                    //Content = "",
+                    ShownCircles = new List<Circle> {_circles[3]},
+                    Created = DateTime.Now,
+
+                },
+
+                new Post()
+                {
+                    Author = _users[3],
+                    IsPublic = false,
+                    //PostFeeling = "Text",
+                    PostText = "Vi på vejen igen",
+                    ShownCircles = new List<Circle> {_circles[2]},
+                    Created = DateTime.Now,
+                    Comment = new List<Comment>()
+                    {
+                        new Comment()
+                        {
+                            Author = _users[1],
+                            Content = "*Smiler*",
+                            DateAndTime = DateTime.Now
+                        },
+
+                    }
+                },
+
+                new Post()
+                {
+                    Author = _users[4],
+                    IsPublic = false,
+                    PostFeeling = Feeling.Gammel,
+                    //PostText = 
+                    ShownCircles = new List<Circle> {_circles[3]},
+                    Created = DateTime.Now,
+                    Comment = new List<Comment>()
+                    {
+                        new Comment()
+                        {
+                            Author = _users[5],
+                            Content =
+                                "Dette minder mig om 1986, da Tjernobyl eksploderede, og myndighederne rådede os om," +
+                                " at frugten på vores træer måske har fået radioaktiv forgiftning og ikke at spise dem det år. " +
+                                "Mange var vrede over, at nogen skulle fortelle dem, at de ikke kunne spise deres egen frugt. Det er den samme kortsigtighed vi ser i år.",
+                            DateAndTime = DateTime.Now
+                        },
+
+                    }
+                },
+
+                new Post()
+                {
+                    Author = _users[5],
+                    IsPublic = true,
+                    //PostFeeling = "Text",
+                    PostText =
+                        "Jeg synes vi som samfund bør fordømme enhver kultur/samfund, hvor det praktiseres at voksne legalt kan gifte sig med børn.",
+                    ShownCircles = new List<Circle> {_circles[1]},
+                    Created = DateTime.Now,
+                    Comment = new List<Comment>()
+                    {
+                        new Comment()
+                        {
+                            Author = _users[1],
+                            Content = "Sikke en dag",
+                            DateAndTime = DateTime.Now
+                        },
+                    }
+                }
+
+            };
+
+            foreach (var post_ in _posts)
+            {
+                _postService.Create(post_);
+            }
         }
 
 
