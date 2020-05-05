@@ -14,7 +14,7 @@ namespace Dab_SocialNetwork
         public void ShowFeedForUser(User Subject)
         {
             List<Post> postsInSubjectFeed = new List<Post>();
-            List<Circle> circlesFollowedBySubject = userService.GetCirclesByUser(Subject);
+            List<Circle> circlesFollowedBySubject = Subject.Circles;
             foreach (var x in circlesFollowedBySubject)
             {
                 List<Post> postsInCircle = postService.GetPostsInCircle(x);
@@ -28,38 +28,40 @@ namespace Dab_SocialNetwork
                 postsFromFollowedUser.AddRange(postsFromFollowedUser);
             }
 
-            Console.WriteLine("FEED");
+            Console.WriteLine($"-------------{Subject.Name}'s Feed-------------");
             for (var x = 0; x < postsInSubjectFeed.Count; x++)
             {
-                Console.WriteLine($"*******");
-                Console.WriteLine($"{postsInSubjectFeed[x].PostText}\n");
-                Console.WriteLine($"{postsInSubjectFeed[x].Author.Name}\n");
-                Console.WriteLine($"Date of post: {postsInSubjectFeed[x].Created}\n");
+                Console.WriteLine("**********************");
+                Console.WriteLine($"Post #{x+1}");
+                Console.WriteLine($"'{postsInSubjectFeed[x].PostText}'");
+                Console.WriteLine($"Author: {postsInSubjectFeed[x].Author.Name}");
+                Console.WriteLine($"Date of post: {postsInSubjectFeed[x].Created}");
 
                 Console.WriteLine($"Comments:");
                 List<Comment> commentsOnPost = postService.GetComments(postsInSubjectFeed[x]);
                 foreach (var y in postsInSubjectFeed[x].Comment)
                 {
-                    Console.WriteLine($"Comment: {y.Content}\n");
+                    Console.WriteLine("*");
+                    Console.WriteLine($"'{y.Content}'");
                     Console.WriteLine($"Author: {y.Author.Name} ");
                     Console.WriteLine($"Date of comment: {y.DateAndTime} ");
                 }
             }
         }
 
-        public void ShowWall(User Subject, User viewingFriend)
+        public void ShowWallForFriend(User wallOwner, User viewer)
         {
             List<Post> postsOnSubjectWall = new List<Post>();
             List<Post> postsThatViewingFriendHasAccessTo = new List<Post>();
 
-            postsOnSubjectWall = postService.GetByAuthor(Subject);
+            postsOnSubjectWall = postService.GetByAuthor(wallOwner);
             foreach (var x in postsOnSubjectWall)
             {
                 var viewingFriendHasAccess = false;
                 List<Circle> postCircles = x.ShownCircles;
                 foreach (var y in postCircles)
                 {
-                    if (y.Members.Contains(userService.GetByName(viewingFriend.Name)))
+                    if (y.Members.Contains(userService.GetByName(viewer.Name)))
                     {
                         viewingFriendHasAccess = true;
                     }
@@ -88,6 +90,36 @@ namespace Dab_SocialNetwork
                 {
                     Console.WriteLine($"Comments:");
                     foreach (var y in postsThatViewingFriendHasAccessTo[x].Comment)
+                    {
+                        Console.WriteLine($"Comment: {y.Content}\n");
+                        Console.WriteLine($"Author: {y.Author.Name} ");
+                        Console.WriteLine($"Date of comment: {y.DateAndTime} ");
+                    }
+                }
+            }
+        }
+        public void ShowOwnWall(User wallOwner)
+        {
+            List<Post> postsOnSubjectWall = new List<Post>();
+
+            postsOnSubjectWall = postService.GetByAuthor(wallOwner);
+            foreach (var x in postsOnSubjectWall)
+            {
+               
+            }
+
+            Console.WriteLine("WALL");
+            for (var x = 0; x < postsOnSubjectWall.Count; x++)
+            {
+                Console.WriteLine($"*******");
+                Console.WriteLine($"{postsOnSubjectWall[x].PostText}\n");
+                Console.WriteLine($"{postsOnSubjectWall[x].Author.Name}\n");
+                Console.WriteLine($"Date of post: {postsOnSubjectWall[x].Created}\n");
+                List<Comment> commentsOnPost = postService.GetComments(postsOnSubjectWall[x]);
+                if (commentsOnPost.Any())
+                {
+                    Console.WriteLine($"Comments:");
+                    foreach (var y in postsOnSubjectWall[x].Comment)
                     {
                         Console.WriteLine($"Comment: {y.Content}\n");
                         Console.WriteLine($"Author: {y.Author.Name} ");

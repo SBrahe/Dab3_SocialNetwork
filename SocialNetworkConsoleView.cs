@@ -18,13 +18,12 @@ namespace Dab_SocialNetwork
 
         public void LaunchSocialNetwork()
         {
-            
             User loggedInAs = userService.GetByName("Jodle Birge");
             Console.WriteLine("Social Network launched");
             
             while (true)
             {
-                System.Console.WriteLine("You're logged in as Jodle Birge. What would you like to do?");
+                System.Console.WriteLine($"You're logged in as {loggedInAs.Name}. What would you like to do?");
                 System.Console.WriteLine("1: Show my feed");
                 System.Console.WriteLine("2: Show a friend's wall");
                 System.Console.WriteLine("3: Show own wall");
@@ -70,12 +69,12 @@ namespace Dab_SocialNetwork
             var userWhoseWallToShowString = Console.ReadLine();
             
             User userWhoseWallToShow = userService.GetByName(userWhoseWallToShowString);
-            queries.ShowWall(userWhoseWallToShow,loggedInAs);
+            queries.ShowWallForFriend(userWhoseWallToShow,loggedInAs);
         }
 
         private void ShowOwnWall(User loggedInAs)
         {
-            
+            queries.ShowOwnWall(loggedInAs);
         }
         
         private void CreatePost(User loggedInAs)
