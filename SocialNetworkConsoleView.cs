@@ -105,7 +105,7 @@ namespace Dab_SocialNetwork
                 PostText = content,
                 IsPublic = isPublic,
                 Created = DateTime.Now,
-                Comment = new List<Comment>()
+                Comments = new List<Comment>()
             };
             queries.CreatePost(loggedInAs,content,isPublic);
         }
@@ -126,7 +126,7 @@ namespace Dab_SocialNetwork
             };
 
             Post post = postService.GetById(id);
-            post.Comment.Add(comment);
+            post.Comments.Add(comment);
             postService.Update(post.Id, post);
         }
     }
