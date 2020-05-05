@@ -21,7 +21,7 @@ namespace Dab_SocialNetwork
 
         public void LaunchSocialNetwork()
         {
-            User loggedInAs = userService.GetByName("Toke");
+            User loggedInAs = userService.GetByName("Jodle Birge");
             Console.WriteLine("Social Network launched");
             
             while (true)
