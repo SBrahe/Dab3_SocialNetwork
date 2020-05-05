@@ -67,7 +67,10 @@ namespace Dab_SocialNetwork
 
         private void ShowFriendWall(User loggedInAs)
         {
+            var userWhoseWallToShowString = Console.ReadLine();
             
+            User userWhoseWallToShow = userService.GetByName(userWhoseWallToShowString);
+            queries.ShowWall(userWhoseWallToShow,loggedInAs);
         }
 
         private void ShowOwnWall(User loggedInAs)

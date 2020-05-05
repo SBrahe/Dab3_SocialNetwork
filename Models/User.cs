@@ -34,6 +34,5 @@ namespace Dab_SocialNetwork.Models
         
         [BsonElement("Followed users")]
         public List<User> FollowedUsers { get; set; }
-        
     }
 }
