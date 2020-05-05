@@ -56,17 +56,17 @@ namespace Dab_SocialNetwork.Services
             return user;
         }
 
-        public void Update(string id, User userIn) =>
-            _users.ReplaceOne(user => user.Id == id, userIn);
+        public void Update(string name, User userIn) =>
+            _users.ReplaceOne(user => user.Name == name, userIn);
 
         public void Remove(User userIn) =>
-            _users.DeleteOne(user => user.Id == userIn.Id);
+            _users.DeleteOne(user => user.Name == userIn.Name);
 
-        public void Remove(string id) =>
-            _users.DeleteOne(user => user.Id == id);
+        public void Remove(string name) =>
+            _users.DeleteOne(user => user.Name== name);
 
         public void Empty() =>
-            _users.DeleteMany(user => user.Id !=null);
+            _users.DeleteMany(user => user.Name!=null);
     }
 }
 

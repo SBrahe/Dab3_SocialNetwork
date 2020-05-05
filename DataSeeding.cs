@@ -183,7 +183,7 @@ namespace Dab_SocialNetwork
                 _userService.GetByName("Ib Grønbech")
             };
 
-            _userService.Update("Jodle Birge",followuser1);
+            _userService.Update("JodleBirge",followuser1);
 
             var followuser2 = _userService.GetByName("Ib Grønbech");
             followuser2.FollowedUsers = new List<User>()
