@@ -12,6 +12,9 @@ namespace Dab_SocialNetwork.Models
         [BsonRepresentation(BsonType.ObjectId)]
         public int Id { get; set; }
 
+        [BsonElement("Name of the circle")]
+        public string Name { get; set; }
+
         [BsonElement("Members of circle")]
         public List<User> Members { get; set; }
     }

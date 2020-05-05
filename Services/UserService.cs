@@ -24,8 +24,14 @@ namespace Dab_SocialNetwork.Services
         public User Get(string id) =>
             _users.Find<User>(user => user.Id == id).FirstOrDefault();
 
+        public User GetByName(string name) =>
+            _users.Find<User>(user => user.Name == name).FirstOrDefault();
+
         public Circle Get(User user, int id) =>
             user.Circles.Find(circle => circle.Id == id);
+
+        public Circle Get(User user, string name) =>
+            user.Circles.Find(circle => circle.Name == name);
 
         public List<Circle> GetCircleByUser(User user)
         {
