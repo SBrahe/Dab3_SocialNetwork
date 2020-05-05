@@ -130,16 +130,14 @@ namespace Dab_SocialNetwork
         }
 
         //////////////////////////////////////CREATIONS/////////////////////////////////////////////////////
-        public void CreatePost(User author, Feeling postFeeling, string postText, bool isPublic, List<Circle> circles)
+        public void CreatePost(User author, string postText, bool isPublic)
         {
             var post = new Post
             {
                 Author = author,
-                PostFeeling = postFeeling,
                 PostText = postText,
                 Created = DateTime.Now,
                 IsPublic = isPublic,
-                ShownCircles = circles,
                 Comment = new List<Comment>()
             };
 
