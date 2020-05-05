@@ -165,7 +165,7 @@ namespace Dab_SocialNetwork
                 Created = DateTime.Now,
                 IsPublic = isPublic,
                 ShownCircles = circles,
-                Comment = new List<Comment>()
+                Comments = new List<Comment>()
             };
 
             postService.Create(post);
@@ -180,7 +180,7 @@ namespace Dab_SocialNetwork
                 DateAndTime = DateTime.Now
             };
 
-            post.Comment.Add(comment);
+            post.Comments.Add(comment);
             postService.Update(post.Id, post);
         }
     }
