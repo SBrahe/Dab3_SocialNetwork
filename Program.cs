@@ -6,10 +6,9 @@ namespace Dab_SocialNetwork
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
-            while (true)
-            {
-            }
+            SocialNetworkFunctions socialnetwork = new SocialNetworkFunctions();
+            socialnetwork.LaunchSocialNetwork();
+        }
         }
     }
 }

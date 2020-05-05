@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace Dab_SocialNetwork
 {
-    public class SocialNetworkFeeling
+    public class SocialNetworkFunctions
     {
         public void LaunchSocialNetwork()
         {
@@ -15,6 +15,8 @@ namespace Dab_SocialNetwork
                 System.Console.WriteLine("1: Show my feed");
                 System.Console.WriteLine("2: Show a friend's wall");
                 System.Console.WriteLine("3: Show own wall");
+                System.Console.WriteLine("4: Create post");
+                System.Console.WriteLine("5: Create comment");
 
                 consoleKeyInfo = Console.ReadKey();
                 switch (consoleKeyInfo.KeyChar)
@@ -30,6 +32,18 @@ namespace Dab_SocialNetwork
                     case '3':
                         System.Console.WriteLine("");
                         ShowOwnWall();
+                        break;
+                    case '4':
+                        System.Console.WriteLine("");
+                        CreatePost();
+                        break;
+                    case '5':
+                        System.Console.WriteLine("");
+                        CreateComment();
+                        break;
+                    case '6':
+                        System.Console.WriteLine("");
+                        CreateComment();
                         break;
                     default:
                         break;
@@ -48,6 +62,16 @@ namespace Dab_SocialNetwork
         }
 
         private void ShowOwnWall()
+        {
+            
+        }
+        
+        private void CreatePost()
+        {
+            
+        }
+        
+        private void CreateComment()
         {
             
         }
