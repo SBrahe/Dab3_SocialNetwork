@@ -7,9 +7,8 @@ namespace Dab_SocialNetwork
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
-            while (1+1==2)
+            while (true)
             {
-                
             }
         }
     }
