@@ -33,22 +33,6 @@ namespace Dab_SocialNetwork.Services
         public Circle Get(User user, string name) =>
             user.Circles.Find(circle => circle.Name == name);
 
-        public List<Circle> GetCirclesByUser(User user)
-        {
-            var users = Get();
-            var circles = new List<Circle>();
-
-            foreach (var user_ in users)
-            {
-                var hasUser = user_.Circles.Find(x => x.Members.Contains(user));
-                if (hasUser != null)
-                {
-                    circles.Add(hasUser);
-                }
-            }
-            return circles;
-        }
-
         public User Create(User user)
         {
             _users.InsertOne(user);

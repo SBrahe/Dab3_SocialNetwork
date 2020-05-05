@@ -12,8 +12,6 @@ namespace Dab_SocialNetwork.Models
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
 
-
-
         [BsonElement("Name")]
         public string Name { get; set; }
 

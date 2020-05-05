@@ -14,7 +14,7 @@ namespace Dab_SocialNetwork
         public void ShowFeedForUser(User Subject)
         {
             List<Post> postsInSubjectFeed = new List<Post>();
-            List<Circle> circlesFollowedBySubject = userService.GetCirclesByUser(Subject);
+            List<Circle> circlesFollowedBySubject = Subject.Circles;
             foreach (var x in circlesFollowedBySubject)
             {
                 List<Post> postsInCircle = postService.GetPostsInCircle(x);
@@ -28,19 +28,21 @@ namespace Dab_SocialNetwork
                 postsFromFollowedUser.AddRange(postsFromFollowedUser);
             }
 
-            Console.WriteLine("FEED");
+            Console.WriteLine($"-------------{Subject.Name}'s Feed-------------");
             for (var x = 0; x < postsInSubjectFeed.Count; x++)
             {
-                Console.WriteLine($"*******");
-                Console.WriteLine($"{postsInSubjectFeed[x].PostText}\n");
-                Console.WriteLine($"{postsInSubjectFeed[x].Author.Name}\n");
-                Console.WriteLine($"Date of post: {postsInSubjectFeed[x].Created}\n");
+                Console.WriteLine("**********************");
+                Console.WriteLine($"Post #{x+1}");
+                Console.WriteLine($"'{postsInSubjectFeed[x].PostText}'");
+                Console.WriteLine($"Author: {postsInSubjectFeed[x].Author.Name}");
+                Console.WriteLine($"Date of post: {postsInSubjectFeed[x].Created}");
 
                 Console.WriteLine($"Comments:");
                 List<Comment> commentsOnPost = postService.GetComments(postsInSubjectFeed[x]);
                 foreach (var y in postsInSubjectFeed[x].Comment)
                 {
-                    Console.WriteLine($"Comment: {y.Content}\n");
+                    Console.WriteLine("*");
+                    Console.WriteLine($"'{y.Content}'");
                     Console.WriteLine($"Author: {y.Author.Name} ");
                     Console.WriteLine($"Date of comment: {y.DateAndTime} ");
                 }
