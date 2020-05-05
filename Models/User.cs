@@ -32,5 +32,9 @@ namespace Dab_SocialNetwork.Models
 
         [BsonElement("Blocked users")]
         public List<User> BlockedUsers { get; set; }
+        
+        [BsonElement("Followed users")]
+        public List<User> FollowedUsers { get; set; }
+        
     }
 }

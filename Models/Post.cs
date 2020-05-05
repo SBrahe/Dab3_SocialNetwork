@@ -16,7 +16,10 @@ namespace Dab_SocialNetwork.Models
         public User Author { get; set; }
 
         [BsonElement("Public to guests")]
-        public bool isPublic { get; set; }
+        public bool IsPublic { get; set; }
+        
+        [BsonElement("Post type")]
+        public string PostType { get; set; }
 
         [BsonElement("Content of post")]
         public string Content { get; set; }
@@ -26,5 +29,8 @@ namespace Dab_SocialNetwork.Models
 
         [BsonElement("Date and time of post")]
         public DateTime Created { get; set; }
+        
+        [BsonElement("Comments")]
+        public List<Comment> Comment { get; set; }
     }
 }
