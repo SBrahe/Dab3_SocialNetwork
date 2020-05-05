@@ -6,6 +6,15 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace Dab_SocialNetwork.Models
 {
+    enum Feeling
+    {
+        Glad,
+        Jævnt_Utilfreds,
+        Sur,
+        Ked_af_det,
+        Festlig,
+        Gammel
+    }
     class Post
     {
         [BsonId]
@@ -17,11 +26,11 @@ namespace Dab_SocialNetwork.Models
         [BsonElement("Public to guests")]
         public bool IsPublic { get; set; }
         
-        [BsonElement("Post type")]
-        public string PostType { get; set; }
+        [BsonElement("Post Feeling")]
+        public Feeling PostFeeling { get; set; }
 
-        [BsonElement("Content of post")]
-        public string Content { get; set; }
+        [BsonElement("Post Text")]
+        public string PostText { get; set; }
 
         [BsonElement("Circles for post")]
         public List<Circle> ShownCircles { get; set; }
