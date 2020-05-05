@@ -24,6 +24,8 @@ namespace Dab_SocialNetwork.Services
         public User Get(string id) =>
             _users.Find<User>(user => user.Id == id).FirstOrDefault();
 
+        public Circle Get(User user, int id) =>
+            user.Circles.Find(circle => circle.Id == id);
 
         public User Create(User user)
         {

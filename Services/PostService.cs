@@ -24,6 +24,15 @@ namespace Dab_SocialNetwork.Services
         public Post Get(string id) =>
             _posts.Find<Post>(post => post.Id == id).FirstOrDefault();
 
+        public List<Post> GetByAuthor(User user) =>
+            _posts.Find(post=>post.Author== user).ToList();
+
+        public List<Post> GetFromCircle(Circle circle) =>
+            _posts.Find(post => post.ShownCircles.Contains(circle)).ToList();
+
+        public List<Post> GetComments(User user) =>
+            _posts.Find(post => post.Author == user).ToList();
+
         public Post Create(Post post)
         {
             _posts.InsertOne(post);

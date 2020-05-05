@@ -114,9 +114,20 @@ namespace Dab_SocialNetwork
 
         public void CircleSeed()
         {
-            _circles = new Circle();
+            
             
         }
+
+        public void BlockedUserSeed()
+        {
+
+        }
+
+        public void Post()
+        {
+
+        }
+
 
 
 
