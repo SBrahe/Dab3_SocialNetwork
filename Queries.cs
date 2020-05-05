@@ -127,6 +127,38 @@ namespace Dab_SocialNetwork
                     }
                 }
             }
+
+        }
+
+        //////////////////////////////////////CREATIONS/////////////////////////////////////////////////////
+        public void CreatePost(User author, Feeling postFeeling, string postText, bool isPublic, List<Circle> circles)
+        {
+            var post = new Post
+            {
+                Author = author,
+                PostFeeling = postFeeling,
+                PostText = postText,
+                Created = DateTime.Now,
+                IsPublic = isPublic,
+                ShownCircles = circles,
+                Comment = new List<Comment>()
+            };
+
+            postService.Create(post);
+        }
+
+        public void CreateComment(User author, Post post, string content)
+        {
+            var comment = new Comment
+            {
+                Author = author,
+                Content = content,
+                DateAndTime = DateTime.Now
+            };
+
+            post.Comment.Add(comment);
+            postService.Update(post.Id, post);
         }
     }
 }
+
