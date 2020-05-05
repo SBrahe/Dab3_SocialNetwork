@@ -24,7 +24,7 @@ namespace Dab_SocialNetwork.Services
             _posts.Find<Post>(post => post.Id == id).FirstOrDefault();
 
         public List<Post> GetByAuthor(User user) =>
-            _posts.Find(post=>post.Author== user).ToList();
+            _posts.Find(post=>post.Author.Id== user.Id).ToList();
 
         public List<Post> GetPostsInCircle(Circle circle) =>
             _posts.Find(post => post.ShownCircles.Contains(circle)).ToList();
@@ -32,7 +32,7 @@ namespace Dab_SocialNetwork.Services
         public List<Comment> GetComments(Post post)
         {
             List<Comment> comments = new List<Comment>();
-            foreach (var comment_ in post.Comment)
+            foreach (var comment_ in post.Comments)
             {
                 comments.Add(comment_);
             }

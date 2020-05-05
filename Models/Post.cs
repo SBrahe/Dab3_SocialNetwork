@@ -6,6 +6,11 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace Dab_SocialNetwork.Models
 {
+    enum PostType
+    {
+        Text,
+        Feeling
+    }
     enum Feeling
     {
         Glad,
@@ -27,6 +32,9 @@ namespace Dab_SocialNetwork.Models
         [BsonElement("Public to guests")]
         public bool IsPublic { get; set; }
         
+        [BsonElement("Post Type")]
+        public PostType PostType { get; set; }
+        
         [BsonElement("Post Feeling")]
         public Feeling PostFeeling { get; set; }
 
@@ -40,6 +48,6 @@ namespace Dab_SocialNetwork.Models
         public DateTime Created { get; set; }
         
         [BsonElement("Comments")]
-        public List<Comment> Comment { get; set; }
+        public List<Comment> Comments { get; set; }
     }
 }

@@ -32,14 +32,21 @@ namespace Dab_SocialNetwork
             for (var x = 0; x < postsInSubjectFeed.Count; x++)
             {
                 Console.WriteLine("****");
-                Console.WriteLine($"Post #{x+1}");
-                Console.WriteLine($"'{postsInSubjectFeed[x].PostText}'");
+                Console.WriteLine($"Post #{x + 1}, content type {postsInSubjectFeed[x].PostType}");
+                if (postsInSubjectFeed[x].PostType == PostType.Text)
+                {
+                    Console.WriteLine($"'{postsInSubjectFeed[x].PostText}'");
+                }
+                else if (postsInSubjectFeed[x].PostType == PostType.Feeling)
+                {
+                    Console.WriteLine($"'{postsInSubjectFeed[x].PostFeeling}'");
+                }
+
                 Console.WriteLine($"Author: {postsInSubjectFeed[x].Author.Name}");
                 Console.WriteLine($"Date of post: {postsInSubjectFeed[x].Created}");
-
+                if (postsInSubjectFeed[x].Comments == null) return;
                 Console.WriteLine($"Comments:");
-                List<Comment> commentsOnPost = postService.GetComments(postsInSubjectFeed[x]);
-                foreach (var y in postsInSubjectFeed[x].Comment)
+                foreach (var y in postsInSubjectFeed[x].Comments)
                 {
                     Console.WriteLine($"'{y.Content}'");
                     Console.WriteLine($"Author: {y.Author.Name} ");
@@ -48,13 +55,13 @@ namespace Dab_SocialNetwork
                 }
             }
         }
-        
+
         public void ShowWallForFriend(User wallOwner, User viewer)
         {
             List<Post> postsOnWall = new List<Post>();
             List<Post> postsThatViewerHasAccessTo = new List<Post>();
 
-            postsOnWall = postService.GetByAuthor(wallOwner);
+            postsOnWall.AddRange(postService.GetByAuthor(wallOwner));
             foreach (var x in postsOnWall)
             {
                 var viewingFriendHasAccess = false;
@@ -66,6 +73,7 @@ namespace Dab_SocialNetwork
                         viewingFriendHasAccess = true;
                     }
                 }
+
                 if (x.IsPublic == true)
                 {
                     viewingFriendHasAccess = true;
@@ -81,14 +89,22 @@ namespace Dab_SocialNetwork
             for (var x = 0; x < postsThatViewerHasAccessTo.Count; x++)
             {
                 Console.WriteLine("****");
-                Console.WriteLine($"Post #{x+1}");
-                Console.WriteLine($"'{postsThatViewerHasAccessTo[x].PostText}'");
+                Console.WriteLine($"Post #{x + 1}, content type {postsThatViewerHasAccessTo[x].PostType}");
+                if (postsThatViewerHasAccessTo[x].PostType == PostType.Text)
+                {
+                    Console.WriteLine($"'{postsThatViewerHasAccessTo[x].PostText}'");
+                }
+                else if (postsThatViewerHasAccessTo[x].PostType == PostType.Feeling)
+                {
+                    Console.WriteLine($"'{postsThatViewerHasAccessTo[x].PostFeeling}'");
+                }
+
                 Console.WriteLine($"Author: {postsThatViewerHasAccessTo[x].Author.Name}");
                 Console.WriteLine($"Date of post: {postsThatViewerHasAccessTo[x].Created}");
 
+                if (postsThatViewerHasAccessTo[x].Comments == null) return;
                 Console.WriteLine($"Comments:");
-                List<Comment> commentsOnPost = postService.GetComments(postsThatViewerHasAccessTo[x]);
-                foreach (var y in postsThatViewerHasAccessTo[x].Comment)
+                foreach (var y in postsThatViewerHasAccessTo[x].Comments)
                 {
                     Console.WriteLine($"'{y.Content}'");
                     Console.WriteLine($"Author: {y.Author.Name} ");
@@ -97,33 +113,42 @@ namespace Dab_SocialNetwork
                 }
             }
         }
+
         public void ShowOwnWall(User wallOwner)
         {
-            List<Post> postsOnSubjectWall = new List<Post>();
+            List<Post> postsOnWall = new List<Post>();
 
-            postsOnSubjectWall = postService.GetByAuthor(wallOwner);
-            foreach (var x in postsOnSubjectWall)
+            postsOnWall = postService.GetByAuthor(wallOwner);
+            foreach (var x in postsOnWall)
             {
-               
             }
 
-            Console.WriteLine("WALL");
-            for (var x = 0; x < postsOnSubjectWall.Count; x++)
+
+            Console.WriteLine($"-------------{wallOwner.Name}'s Wall-------------");
+            for (var x = 0; x < postsOnWall.Count; x++)
             {
-                Console.WriteLine($"*******");
-                Console.WriteLine($"{postsOnSubjectWall[x].PostText}\n");
-                Console.WriteLine($"{postsOnSubjectWall[x].Author.Name}\n");
-                Console.WriteLine($"Date of post: {postsOnSubjectWall[x].Created}\n");
-                List<Comment> commentsOnPost = postService.GetComments(postsOnSubjectWall[x]);
-                if (commentsOnPost.Any())
+                Console.WriteLine("****");
+                Console.WriteLine($"Post #{x + 1}, content type {postsOnWall[x].PostType}");
+                if (postsOnWall[x].PostType == PostType.Text)
                 {
-                    Console.WriteLine($"Comments:");
-                    foreach (var y in postsOnSubjectWall[x].Comment)
-                    {
-                        Console.WriteLine($"Comment: {y.Content}\n");
-                        Console.WriteLine($"Author: {y.Author.Name} ");
-                        Console.WriteLine($"Date of comment: {y.DateAndTime} ");
-                    }
+                    Console.WriteLine($"'{postsOnWall[x].PostText}'");
+                }
+                else if (postsOnWall[x].PostType == PostType.Feeling)
+                {
+                    Console.WriteLine($"'{postsOnWall[x].PostFeeling}'");
+                }
+
+                Console.WriteLine($"Author: {postsOnWall[x].Author.Name}");
+                Console.WriteLine($"Date of post: {postsOnWall[x].Created}");
+                
+                if (postsOnWall[x].Comments == null) return;
+                Console.WriteLine($"Comments:");
+                foreach (var y in postsOnWall[x].Comments)
+                {
+                    Console.WriteLine($"'{y.Content}'");
+                    Console.WriteLine($"Author: {y.Author.Name} ");
+                    Console.WriteLine($"Date of comment: {y.DateAndTime} ");
+                    Console.WriteLine("*");
                 }
             }
         }
