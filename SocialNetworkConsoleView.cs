@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Dab_SocialNetwork.Models;
 using Dab_SocialNetwork.Services;
 
@@ -8,11 +9,13 @@ namespace Dab_SocialNetwork
     public class SocialNetworkConsoleView
     {
         private UserService userService;
+        private PostService postService;
         private Queries queries;
         
         public SocialNetworkConsoleView()
         {
             userService = new UserService();
+            postService = new PostService();
             queries = new Queries();
         }
 
@@ -80,12 +83,51 @@ namespace Dab_SocialNetwork
         
         private void CreatePost(User loggedInAs)
         {
-            queries.CreatePost(loggedInAs);   
+            var isPublic=true;
+            Console.WriteLine("Public Post? (y/n)");
+            var publicprivate = Console.ReadLine();
+            if (publicprivate == "y")
+            {
+                isPublic = true;
+            }
+            else if (publicprivate == "n")
+            {
+                isPublic = false;
+            }
+            
+            Console.WriteLine("Enter Content of Post");
+            var content = Console.ReadLine();
+
+            Console.WriteLine();
+            Post post = new Post
+            {
+                Author = loggedInAs,
+                PostText = content,
+                IsPublic = isPublic,
+                Created = DateTime.Now,
+                Comment = new List<Comment>()
+            };
+            queries.CreatePost(loggedInAs,content,isPublic);
         }
         
         private void CreateComment(User loggedInAs)
         {
-            queries.CreateComment(loggedInAs);
+            Console.Write("Input id of post you want to comment");
+            string id = Console.ReadLine();
+
+            Console.Write("Enter Content of Comment ");
+            string content = Console.ReadLine();
+
+            Comment comment = new Comment
+            {
+                Author = loggedInAs,
+                Content = content,
+                DateAndTime = DateTime.Now
+            };
+
+            Post post = postService.GetById(id);
+            post.Comment.Add(comment);
+            postService.Update(post.Id, post);
         }
     }
 }

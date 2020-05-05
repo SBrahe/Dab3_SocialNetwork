@@ -20,7 +20,7 @@ namespace Dab_SocialNetwork.Services
         public List<Post> Get() =>
             _posts.Find(post => true).ToList();
 
-        public Post Get(string id) =>
+        public Post GetById(string id) =>
             _posts.Find<Post>(post => post.Id == id).FirstOrDefault();
 
         public List<Post> GetByAuthor(User user) =>

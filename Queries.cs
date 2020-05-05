@@ -155,17 +155,15 @@ namespace Dab_SocialNetwork
         }
 
         //////////////////////////////////////CREATIONS/////////////////////////////////////////////////////
-        public void CreatePost(User author, Feeling postFeeling, string postText, bool isPublic, List<Circle> circles)
+        public void CreatePost(User author, string postText, bool isPublic)
         {
             var post = new Post
             {
                 Author = author,
-                PostFeeling = postFeeling,
                 PostText = postText,
                 Created = DateTime.Now,
                 IsPublic = isPublic,
-                ShownCircles = circles,
-                Comments = new List<Comment>()
+                Comment = new List<Comment>()
             };
 
             postService.Create(post);
@@ -180,7 +178,7 @@ namespace Dab_SocialNetwork
                 DateAndTime = DateTime.Now
             };
 
-            post.Comments.Add(comment);
+            post.Comment.Add(comment);
             postService.Update(post.Id, post);
         }
     }
