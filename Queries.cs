@@ -31,7 +31,7 @@ namespace Dab_SocialNetwork
             Console.WriteLine($"-------------{Subject.Name}'s Feed-------------");
             for (var x = 0; x < postsInSubjectFeed.Count; x++)
             {
-                Console.WriteLine("**********************");
+                Console.WriteLine("****");
                 Console.WriteLine($"Post #{x+1}");
                 Console.WriteLine($"'{postsInSubjectFeed[x].PostText}'");
                 Console.WriteLine($"Author: {postsInSubjectFeed[x].Author.Name}");
@@ -41,21 +41,21 @@ namespace Dab_SocialNetwork
                 List<Comment> commentsOnPost = postService.GetComments(postsInSubjectFeed[x]);
                 foreach (var y in postsInSubjectFeed[x].Comment)
                 {
-                    Console.WriteLine("*");
                     Console.WriteLine($"'{y.Content}'");
                     Console.WriteLine($"Author: {y.Author.Name} ");
                     Console.WriteLine($"Date of comment: {y.DateAndTime} ");
+                    Console.WriteLine("*");
                 }
             }
         }
-
+        
         public void ShowWallForFriend(User wallOwner, User viewer)
         {
-            List<Post> postsOnSubjectWall = new List<Post>();
-            List<Post> postsThatViewingFriendHasAccessTo = new List<Post>();
+            List<Post> postsOnWall = new List<Post>();
+            List<Post> postsThatViewerHasAccessTo = new List<Post>();
 
-            postsOnSubjectWall = postService.GetByAuthor(wallOwner);
-            foreach (var x in postsOnSubjectWall)
+            postsOnWall = postService.GetByAuthor(wallOwner);
+            foreach (var x in postsOnWall)
             {
                 var viewingFriendHasAccess = false;
                 List<Circle> postCircles = x.ShownCircles;
@@ -65,36 +65,35 @@ namespace Dab_SocialNetwork
                     {
                         viewingFriendHasAccess = true;
                     }
+                }
+                if (x.IsPublic == true)
+                {
+                    viewingFriendHasAccess = true;
+                }
 
-                    if (x.IsPublic == true)
-                    {
-                        viewingFriendHasAccess = true;
-                    }
-
-                    if ((!postsThatViewingFriendHasAccessTo.Contains(x)) & (viewingFriendHasAccess == true))
-                    {
-                        postsThatViewingFriendHasAccessTo.Add(x);
-                    }
+                if (viewingFriendHasAccess == true)
+                {
+                    postsThatViewerHasAccessTo.Add(x);
                 }
             }
 
-            Console.WriteLine("WALL");
-            for (var x = 0; x < postsThatViewingFriendHasAccessTo.Count; x++)
+            Console.WriteLine($"-------------{wallOwner.Name}'s Wall-------------");
+            for (var x = 0; x < postsThatViewerHasAccessTo.Count; x++)
             {
-                Console.WriteLine($"*******");
-                Console.WriteLine($"{postsThatViewingFriendHasAccessTo[x].PostText}\n");
-                Console.WriteLine($"{postsThatViewingFriendHasAccessTo[x].Author.Name}\n");
-                Console.WriteLine($"Date of post: {postsThatViewingFriendHasAccessTo[x].Created}\n");
-                List<Comment> commentsOnPost = postService.GetComments(postsThatViewingFriendHasAccessTo[x]);
-                if (commentsOnPost.Any())
+                Console.WriteLine("****");
+                Console.WriteLine($"Post #{x+1}");
+                Console.WriteLine($"'{postsThatViewerHasAccessTo[x].PostText}'");
+                Console.WriteLine($"Author: {postsThatViewerHasAccessTo[x].Author.Name}");
+                Console.WriteLine($"Date of post: {postsThatViewerHasAccessTo[x].Created}");
+
+                Console.WriteLine($"Comments:");
+                List<Comment> commentsOnPost = postService.GetComments(postsThatViewerHasAccessTo[x]);
+                foreach (var y in postsThatViewerHasAccessTo[x].Comment)
                 {
-                    Console.WriteLine($"Comments:");
-                    foreach (var y in postsThatViewingFriendHasAccessTo[x].Comment)
-                    {
-                        Console.WriteLine($"Comment: {y.Content}\n");
-                        Console.WriteLine($"Author: {y.Author.Name} ");
-                        Console.WriteLine($"Date of comment: {y.DateAndTime} ");
-                    }
+                    Console.WriteLine($"'{y.Content}'");
+                    Console.WriteLine($"Author: {y.Author.Name} ");
+                    Console.WriteLine($"Date of comment: {y.DateAndTime} ");
+                    Console.WriteLine("*");
                 }
             }
         }
