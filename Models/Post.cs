@@ -9,7 +9,6 @@ namespace Dab_SocialNetwork.Models
     class Post
     {
         [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
 
         [BsonElement("Author of post")]

@@ -23,7 +23,7 @@ namespace Dab_SocialNetwork
         }
 
         //-----------------------Empty Database------------------------//
-        public void SeedDatabase()
+        public void EmptyDatabase()
         {
             
             _userService.Empty();

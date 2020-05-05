@@ -10,7 +10,7 @@ namespace Dab_SocialNetwork
         private UserService userService = new UserService();
         private PostService postService = new PostService();
 
-        void ShowFeedForUser(User Subject)
+        public void ShowFeedForUser(User Subject)
         {
             List<Post> postsInSubjectFeed = new List<Post>();
             List<Circle> circlesFollowedBySubject = userService.GetCirclesByUser(Subject);

@@ -62,7 +62,7 @@ namespace Dab_SocialNetwork
 
         private void ShowMyFeed(User loggedInAs)
         {
-            
+            queries.ShowFeedForUser(loggedInAs);
         }
 
         private void ShowFriendWall(User loggedInAs)

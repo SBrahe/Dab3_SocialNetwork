@@ -9,7 +9,6 @@ namespace Dab_SocialNetwork.Models
     class Circle
     {
         [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
         public int Id { get; set; }
 
         [BsonElement("Name of the circle")]
