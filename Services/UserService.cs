@@ -39,6 +39,9 @@ namespace Dab_SocialNetwork.Services
 
         public void Remove(string id) =>
             _users.DeleteOne(user => user.Id == id);
+
+        public void Empty() =>
+            _users.DeleteMany(user => user.Id !=null);
     }
 }
 
