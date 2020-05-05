@@ -38,6 +38,9 @@ namespace Dab_SocialNetwork.Services
 
         public void Remove(string id) =>
             _posts.DeleteOne(post => post.Id == id);
+
+        public void Empty() =>
+            _posts.DeleteMany(post => post.Id !=null);
     }
 }
 
