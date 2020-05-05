@@ -80,12 +80,12 @@ namespace Dab_SocialNetwork
         
         private void CreatePost(User loggedInAs)
         {
-            
+            queries.CreatePost(loggedInAs);   
         }
         
         private void CreateComment(User loggedInAs)
         {
-            
+            queries.CreateComment(loggedInAs);
         }
     }
 }
