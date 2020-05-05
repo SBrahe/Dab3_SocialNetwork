@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
+using Dab_SocialNetwork.Services;
 
 namespace Dab_SocialNetwork
 {
@@ -6,7 +8,10 @@ namespace Dab_SocialNetwork
     {
         static void Main(string[] args)
         {
-            SocialNetworkFunctions socialnetwork = new SocialNetworkFunctions();
+            DataSeeding dataSeeder = new DataSeeding();
+            dataSeeder.SeedDatabase();
+            
+            SocialNetworkConsoleView socialnetwork = new SocialNetworkConsoleView();
             socialnetwork.LaunchSocialNetwork();
         }
         

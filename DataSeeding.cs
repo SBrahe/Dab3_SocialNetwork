@@ -16,7 +16,6 @@ namespace Dab_SocialNetwork
         private readonly UserService _userService;
         private readonly PostService _postService;
 
-
         public DataSeeding()
         {
             _userService=new UserService();
@@ -57,7 +56,7 @@ namespace Dab_SocialNetwork
                     Email = "Ibberen@NyTrailer.dk",
                     MobileNum = "87654321",
                     Circles = new List<Circle>(),
-                    BlockedUsers = new List<User>()
+                    BlockedUsers = new List<User>(),
                     FollowedUsers = new List<User>()
                 },
 
