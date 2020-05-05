@@ -15,8 +15,7 @@ namespace Dab_SocialNetwork
             dataSeeder.BlockedUserSeed();
             dataSeeder.CircleSeed();
             dataSeeder.PostSeed();
-            dataSeeder.CommentSeed();
-            
+
             SocialNetworkConsoleView socialnetwork = new SocialNetworkConsoleView();
             socialnetwork.LaunchSocialNetwork();
         }

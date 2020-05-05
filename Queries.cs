@@ -32,7 +32,7 @@ namespace Dab_SocialNetwork
             for (var x = 0; x < postsInSubjectFeed.Count; x++)
             {
                 Console.WriteLine($"*******");
-                Console.WriteLine($"{postsInSubjectFeed[x].Content}\n");
+                Console.WriteLine($"{postsInSubjectFeed[x].PostText}\n");
                 Console.WriteLine($"{postsInSubjectFeed[x].Author.Name}\n");
                 Console.WriteLine($"Date of post: {postsInSubjectFeed[x].Created}\n");
 
@@ -69,7 +69,7 @@ namespace Dab_SocialNetwork
                         viewingFriendHasAccess = true;
                     }
 
-                    if (!postsThatViewingFriendHasAccessTo.Contains(x))
+                    if ((!postsThatViewingFriendHasAccessTo.Contains(x)) & (viewingFriendHasAccess == true))
                     {
                         postsThatViewingFriendHasAccessTo.Add(x);
                     }
@@ -80,7 +80,7 @@ namespace Dab_SocialNetwork
             for (var x = 0; x < postsThatViewingFriendHasAccessTo.Count; x++)
             {
                 Console.WriteLine($"*******");
-                Console.WriteLine($"{postsThatViewingFriendHasAccessTo[x].Content}\n");
+                Console.WriteLine($"{postsThatViewingFriendHasAccessTo[x].PostText}\n");
                 Console.WriteLine($"{postsThatViewingFriendHasAccessTo[x].Author.Name}\n");
                 Console.WriteLine($"Date of post: {postsThatViewingFriendHasAccessTo[x].Created}\n");
                 List<Comment> commentsOnPost = postService.GetComments(postsThatViewingFriendHasAccessTo[x]);

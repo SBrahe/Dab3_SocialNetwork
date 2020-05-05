@@ -9,6 +9,7 @@ namespace Dab_SocialNetwork.Models
     class User
     {
         [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
 
         [BsonElement("Name")]
