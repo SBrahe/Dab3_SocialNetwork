@@ -30,8 +30,15 @@ namespace Dab_SocialNetwork.Services
         public List<Post> GetFromCircle(Circle circle) =>
             _posts.Find(post => post.ShownCircles.Contains(circle)).ToList();
 
-        public List<Post> GetComments(User user) =>
-            _posts.Find(post => post.Author == user).ToList();
+        public List<Comment> GetComments(Post post)
+        {
+            List<Comment> comments = new List<Comment>();
+            foreach (var comment_ in post.Comment)
+            {
+                comments.Add(comment_);
+            }
+            return comments;
+        }
 
         public Post Create(Post post)
         {
