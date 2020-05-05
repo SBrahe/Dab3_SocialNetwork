@@ -46,7 +46,6 @@ namespace Dab_SocialNetwork.Services
                     circles.Add(hasUser);
                 }
             }
-
             return circles;
         }
 

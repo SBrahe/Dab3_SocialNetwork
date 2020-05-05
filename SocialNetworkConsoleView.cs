@@ -70,12 +70,12 @@ namespace Dab_SocialNetwork
             var userWhoseWallToShowString = Console.ReadLine();
             
             User userWhoseWallToShow = userService.GetByName(userWhoseWallToShowString);
-            queries.ShowWall(userWhoseWallToShow,loggedInAs);
+            queries.ShowWallForFriend(userWhoseWallToShow,loggedInAs);
         }
 
         private void ShowOwnWall(User loggedInAs)
         {
-            
+            queries.ShowOwnWall(loggedInAs);
         }
         
         private void CreatePost(User loggedInAs)
