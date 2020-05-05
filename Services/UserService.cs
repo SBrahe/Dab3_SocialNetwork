@@ -40,7 +40,7 @@ namespace Dab_SocialNetwork.Services
 
             foreach (var user_ in users)
             {
-                var hasUser = user_.Circles.Find(x => x.Members.Contains(user));
+                var hasUser = user_.Circles.Find(circle => circle.Members.Contains(user));
                 if (hasUser != null)
                 {
                     circles.Add(hasUser);
