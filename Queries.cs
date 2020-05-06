@@ -32,7 +32,7 @@ namespace Dab_SocialNetwork
             for (var x = 0; x < postsInSubjectFeed.Count; x++)
             {
                 Console.WriteLine("****");
-                Console.WriteLine($"Post #{x + 1}, content type {postsInSubjectFeed[x].PostType}");
+                Console.WriteLine($"Post #{x + 1}, content type: {postsInSubjectFeed[x].PostType}");
                 if (postsInSubjectFeed[x].PostType == PostType.Text)
                 {
                     Console.WriteLine($"'{postsInSubjectFeed[x].PostText}'");
@@ -44,7 +44,7 @@ namespace Dab_SocialNetwork
 
                 Console.WriteLine($"Author: {postsInSubjectFeed[x].Author.Name}");
                 Console.WriteLine($"Date of post: {postsInSubjectFeed[x].Created}");
-                if (postsInSubjectFeed[x].Comments == null) return;
+                if (postsInSubjectFeed[x].Comments == null) continue;
                 Console.WriteLine($"Comments:");
                 foreach (var y in postsInSubjectFeed[x].Comments)
                 {
@@ -66,8 +66,10 @@ namespace Dab_SocialNetwork
             {
                 var viewingFriendHasAccess = false;
                 List<Circle> postCircles = x.ShownCircles;
+                if (x.ShownCircles == null) continue;
                 foreach (var y in postCircles)
                 {
+                    if (y.Members == null) continue;
                     if (y.Members.Contains(userService.GetByName(viewer.Name)))
                     {
                         viewingFriendHasAccess = true;
@@ -89,7 +91,7 @@ namespace Dab_SocialNetwork
             for (var x = 0; x < postsThatViewerHasAccessTo.Count; x++)
             {
                 Console.WriteLine("****");
-                Console.WriteLine($"Post #{x + 1}, content type {postsThatViewerHasAccessTo[x].PostType}");
+                Console.WriteLine($"Post #{x + 1}, content type: {postsThatViewerHasAccessTo[x].PostType}");
                 if (postsThatViewerHasAccessTo[x].PostType == PostType.Text)
                 {
                     Console.WriteLine($"'{postsThatViewerHasAccessTo[x].PostText}'");
@@ -102,7 +104,7 @@ namespace Dab_SocialNetwork
                 Console.WriteLine($"Author: {postsThatViewerHasAccessTo[x].Author.Name}");
                 Console.WriteLine($"Date of post: {postsThatViewerHasAccessTo[x].Created}");
 
-                if (postsThatViewerHasAccessTo[x].Comments == null) return;
+                if (postsThatViewerHasAccessTo[x].Comments == null) continue;
                 Console.WriteLine($"Comments:");
                 foreach (var y in postsThatViewerHasAccessTo[x].Comments)
                 {
@@ -128,7 +130,7 @@ namespace Dab_SocialNetwork
             for (var x = 0; x < postsOnWall.Count; x++)
             {
                 Console.WriteLine("****");
-                Console.WriteLine($"Post #{x + 1}, content type {postsOnWall[x].PostType}");
+                Console.WriteLine($"Post #{x + 1}, content type: {postsOnWall[x].PostType}");
                 if (postsOnWall[x].PostType == PostType.Text)
                 {
                     Console.WriteLine($"'{postsOnWall[x].PostText}'");
@@ -141,7 +143,7 @@ namespace Dab_SocialNetwork
                 Console.WriteLine($"Author: {postsOnWall[x].Author.Name}");
                 Console.WriteLine($"Date of post: {postsOnWall[x].Created}");
                 
-                if (postsOnWall[x].Comments == null) return;
+                if (postsOnWall[x].Comments == null) continue;
                 Console.WriteLine($"Comments:");
                 foreach (var y in postsOnWall[x].Comments)
                 {
