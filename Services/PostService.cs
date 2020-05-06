@@ -16,7 +16,6 @@ namespace Dab_SocialNetwork.Services
             var database = client.GetDatabase("SocialNetworkDb");
             _posts = database.GetCollection<Post>("Posts");
         }
-
         public List<Post> Get() =>
             _posts.Find(post => true).ToList();
 

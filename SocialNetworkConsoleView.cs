@@ -112,22 +112,19 @@ namespace Dab_SocialNetwork
         
         private void CreateComment(User loggedInAs)
         {
-            Console.Write("Input id of post you want to comment");
-            string id = Console.ReadLine();
-
-            Console.Write("Enter Content of Comment ");
-            string content = Console.ReadLine();
-
-            Comment comment = new Comment
+            Console.WriteLine("These are the last 5 posts. Which one do you want to comment on?");
+            List<Post> posts = postService.Get();
+            for (int x = 1; x <= 5; x++)
             {
-                Author = loggedInAs,
-                Content = content,
-                DateAndTime = DateTime.Now
-            };
+                Console.WriteLine(x+": By "+posts[x].Author.Name+". Time: "+posts[x].Created);
+            }
+            ConsoleKeyInfo consoleKeyInfo = Console.ReadKey();
+            char consolekeypressed = consoleKeyInfo.KeyChar;
+            double key = char.GetNumericValue(consolekeypressed);
+            int keyasint = Convert.ToInt32(key);
+            var post = posts[keyasint];
 
-            Post post = postService.GetById(id);
-            post.Comments.Add(comment);
-            postService.Update(post.Id, post);
+            queries.CreateComment(loggedInAs,post);
         }
     }
 }

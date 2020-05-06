@@ -121,11 +121,7 @@ namespace Dab_SocialNetwork
             List<Post> postsOnWall = new List<Post>();
 
             postsOnWall = postService.GetByAuthor(wallOwner);
-            foreach (var x in postsOnWall)
-            {
-            }
-
-
+            
             Console.WriteLine($"-------------{wallOwner.Name}'s Wall-------------");
             for (var x = 0; x < postsOnWall.Count; x++)
             {
@@ -171,9 +167,13 @@ namespace Dab_SocialNetwork
             postService.Create(post);
         }
 
-        public void CreateComment(User author, Post post, string content)
+        public void CreateComment(User author, Post post)
         {
-            var comment = new Comment
+
+            Console.Write("Enter Content of Comment ");
+            string content = Console.ReadLine();
+
+        var comment = new Comment
             {
                 Author = author,
                 Content = content,
