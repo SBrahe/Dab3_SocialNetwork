@@ -15,18 +15,10 @@ namespace Dab_SocialNetwork
         public void ShowFeedForUser(User Subject)
         {
             List<Post> postsInSubjectFeed = new List<Post>();
-            List<Circle> circlesFollowedBySubject = new List<Circle>();
             List<User> usersFollowedBySubject  = new List<User>();
             List<User> usersBlockedBySubject  = new List<User>();
             
             //***MAKE LISTS***
-            //make list of circles followed by subject
-            foreach (var circleId in Subject.Circles)
-            {
-                Circle CircleToAdd = circleService.GetById(circleId);
-                circlesFollowedBySubject.Add(CircleToAdd);
-            }
-
             //make list of users followed by subject
             foreach (var userId in Subject.FollowedUsers)
             {
@@ -43,9 +35,9 @@ namespace Dab_SocialNetwork
             
             //***PULL POSTS***
             //pull posts from circles followed by subject
-            foreach (var x in circlesFollowedBySubject)
+            foreach (var circleId in Subject.Circles)
             {
-                List<Post> postsInCircle = postService.GetPostsInCircle(x);
+                List<Post> postsInCircle = postService.GetPostsByCircleId(circleId);
                 postsInSubjectFeed.AddRange(postsInCircle);
             }
             
