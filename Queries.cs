@@ -15,22 +15,47 @@ namespace Dab_SocialNetwork
         public void ShowFeedForUser(User Subject)
         {
             List<Post> postsInSubjectFeed = new List<Post>();
-            List<String> circlesFollowedBySubject = Subject.Circles;
+            List<Circle> circlesFollowedBySubject = new List<Circle>();
+            List<User> usersFollowedBySubject  = new List<User>();
+            List<User> usersBlockedBySubject  = new List<User>();
             
+            //***MAKE LISTS***
+            //make list of circles followed by subject
+            foreach (var circleId in Subject.Circles)
+            {
+                Circle CircleToAdd = circleService.GetById(circleId);
+                circlesFollowedBySubject.Add(CircleToAdd);
+            }
+
+            //make list of users followed by subject
+            foreach (var userId in Subject.FollowedUsers)
+            {
+                User UserToAdd = UserService.GetById(userId);
+                circlesFollowedBySubject.Add(CircleToAdd);
+            }
             
+            //***PULL POSTS***
+            //pull posts from circles followed by subject
             foreach (var x in circlesFollowedBySubject)
             {
                 List<Post> postsInCircle = postService.GetPostsInCircle(x);
                 postsInSubjectFeed.AddRange(postsInCircle);
             }
-
-            List<User> usersFollowedBySubject = Subject.FollowedUsers;
+            
+            //pull posts from users followed by subject
             foreach (var x in usersFollowedBySubject)
             {
                 List<Post> postsFromFollowedUser = postService.GetByAuthor(x);
                 postsFromFollowedUser.AddRange(postsFromFollowedUser);
             }
-
+            
+            //remove posts from blocked users
+            foreach (var x in usersFollowedBySubject)
+            {
+                List<Post> postsFromFollowedUser = postService.GetByAuthor(x);
+                postsFromFollowedUser.AddRange(postsFromFollowedUser);
+            }
+            
             Console.WriteLine($"-------------{Subject.Name}'s Feed-------------");
             for (var x = 0; x < postsInSubjectFeed.Count; x++)
             {
