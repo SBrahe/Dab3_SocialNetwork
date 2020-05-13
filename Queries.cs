@@ -56,13 +56,20 @@ namespace Dab_SocialNetwork
                 postsInSubjectFeed = result.ToList(); 
             }
             
+            //sort posts
             postsInSubjectFeed = postsInSubjectFeed.OrderBy(p=>p.Created).ToList();
 
+            //create wall in console
             Console.WriteLine($"-------------{Subject.Name}'s Feed-------------");
             for (var x = 0; x < postsInSubjectFeed.Count; x++)
             {
+                //separate post from others
                 Console.WriteLine("****");
+                
+                //output post number and post type
                 Console.WriteLine($"Post #{x + 1}, content type: {postsInSubjectFeed[x].PostType}");
+                
+                //output post content
                 if (postsInSubjectFeed[x].PostType == PostType.Text)
                 {
                     Console.WriteLine($"'{postsInSubjectFeed[x].PostText}'");
@@ -71,9 +78,12 @@ namespace Dab_SocialNetwork
                 {
                     Console.WriteLine($"'{postsInSubjectFeed[x].PostFeeling}'");
                 }
-
+                
+                //output post details
                 Console.WriteLine($"Author: {postsInSubjectFeed[x].Author.Name}");
                 Console.WriteLine($"Date of post: {postsInSubjectFeed[x].Created}");
+                
+                //output comments if any
                 if (postsInSubjectFeed[x].Comments == null) continue;
                 Console.WriteLine($"Comments:");
                 foreach (var y in postsInSubjectFeed[x].Comments)
@@ -95,7 +105,7 @@ namespace Dab_SocialNetwork
             foreach (var x in postsOnWall)
             {
                 var viewingFriendHasAccess = false;
-                List<Circle> postCircles = x.ShownCircles;
+                List<int> postCircles = x.ShownCircles;
                 if (x.ShownCircles == null) continue;
                 foreach (var y in postCircles)
                 {
