@@ -15,30 +15,29 @@ namespace Dab_SocialNetwork
         public void ShowFeedForUser(User Subject)
         {
             List<Post> postsInSubjectFeed = new List<Post>();
-            List<Circle> circlesFollowedBySubject = new List<Circle>();
             List<User> usersFollowedBySubject  = new List<User>();
             List<User> usersBlockedBySubject  = new List<User>();
             
             //***MAKE LISTS***
-            //make list of circles followed by subject
-            foreach (var circleId in Subject.Circles)
-            {
-                Circle CircleToAdd = circleService.GetById(circleId);
-                circlesFollowedBySubject.Add(CircleToAdd);
-            }
-
             //make list of users followed by subject
             foreach (var userId in Subject.FollowedUsers)
             {
-                User UserToAdd = UserService.GetById(userId);
-                circlesFollowedBySubject.Add(CircleToAdd);
+                User UserToAdd = userService.GetById(userId);
+                usersFollowedBySubject.Add(UserToAdd);
+            }
+            
+            //make list of users blocked by subject
+            foreach (var userId in Subject.BlockedUsers)
+            {
+                User UserToAdd = userService.GetById(userId);
+                usersBlockedBySubject.Add(UserToAdd);
             }
             
             //***PULL POSTS***
             //pull posts from circles followed by subject
-            foreach (var x in circlesFollowedBySubject)
+            foreach (var circleId in Subject.Circles)
             {
-                List<Post> postsInCircle = postService.GetPostsInCircle(x);
+                List<Post> postsInCircle = postService.GetPostsByCircleId(circleId);
                 postsInSubjectFeed.AddRange(postsInCircle);
             }
             
@@ -46,21 +45,31 @@ namespace Dab_SocialNetwork
             foreach (var x in usersFollowedBySubject)
             {
                 List<Post> postsFromFollowedUser = postService.GetByAuthor(x);
-                postsFromFollowedUser.AddRange(postsFromFollowedUser);
+                postsInSubjectFeed.AddRange(postsFromFollowedUser);
             }
             
             //remove posts from blocked users
-            foreach (var x in usersFollowedBySubject)
+            foreach (var x in usersBlockedBySubject)
             {
-                List<Post> postsFromFollowedUser = postService.GetByAuthor(x);
-                postsFromFollowedUser.AddRange(postsFromFollowedUser);
+                List<Post> postsFromBlockedUser = postService.GetByAuthor(x);
+                var result = postsInSubjectFeed.Where(x => postsFromBlockedUser.All(y => x.Id != y.Id));
+                postsInSubjectFeed = result.ToList(); 
             }
             
+            //sort posts
+            postsInSubjectFeed = postsInSubjectFeed.OrderBy(p=>p.Created).ToList();
+
+            //create wall in console
             Console.WriteLine($"-------------{Subject.Name}'s Feed-------------");
             for (var x = 0; x < postsInSubjectFeed.Count; x++)
             {
+                //separate post from others
                 Console.WriteLine("****");
+                
+                //output post number and post type
                 Console.WriteLine($"Post #{x + 1}, content type: {postsInSubjectFeed[x].PostType}");
+                
+                //output post content
                 if (postsInSubjectFeed[x].PostType == PostType.Text)
                 {
                     Console.WriteLine($"'{postsInSubjectFeed[x].PostText}'");
@@ -69,9 +78,12 @@ namespace Dab_SocialNetwork
                 {
                     Console.WriteLine($"'{postsInSubjectFeed[x].PostFeeling}'");
                 }
-
+                
+                //output post details
                 Console.WriteLine($"Author: {postsInSubjectFeed[x].Author.Name}");
                 Console.WriteLine($"Date of post: {postsInSubjectFeed[x].Created}");
+                
+                //output comments if any
                 if (postsInSubjectFeed[x].Comments == null) continue;
                 Console.WriteLine($"Comments:");
                 foreach (var y in postsInSubjectFeed[x].Comments)
@@ -93,7 +105,7 @@ namespace Dab_SocialNetwork
             foreach (var x in postsOnWall)
             {
                 var viewingFriendHasAccess = false;
-                List<Circle> postCircles = x.ShownCircles;
+                List<int> postCircles = x.ShownCircles;
                 if (x.ShownCircles == null) continue;
                 foreach (var y in postCircles)
                 {
