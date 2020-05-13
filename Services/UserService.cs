@@ -9,6 +9,7 @@ namespace Dab_SocialNetwork.Services
     class UserService
     {
         private readonly IMongoCollection<User> _users;
+        private readonly IMongoCollection<Circle> _circles;
 
         public UserService()
         {
@@ -16,6 +17,7 @@ namespace Dab_SocialNetwork.Services
             var database = client.GetDatabase("SocialNetworkDb");
 
             _users = database.GetCollection<User>("Users");
+            _circles = database.GetCollection<Circle>("Circles");
         }
 
         public List<User> Get() =>
@@ -26,13 +28,7 @@ namespace Dab_SocialNetwork.Services
 
         public User GetByName(string name) =>
             _users.Find<User>(user => user.Name == name).FirstOrDefault();
-
-        public Circle Get(User user, int id) =>
-            user.Circles.Find(circle => circle.Id == id);
-
-        public Circle Get(User user, string name) =>
-            user.Circles.Find(circle => circle.Name == name);
-
+        
         public User Create(User user)
         {
             _users.InsertOne(user);

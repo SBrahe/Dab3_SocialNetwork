@@ -42,7 +42,7 @@ namespace Dab_SocialNetwork.Models
         public string PostText { get; set; }
 
         [BsonElement("Circles for post")]
-        public List<Circle> ShownCircles { get; set; }
+        public List<int> ShownCircles { get; set; }
 
         [BsonElement("Date and time of post")]
         public DateTime Created { get; set; }

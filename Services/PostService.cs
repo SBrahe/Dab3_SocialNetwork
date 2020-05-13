@@ -16,6 +16,7 @@ namespace Dab_SocialNetwork.Services
             var database = client.GetDatabase("SocialNetworkDb");
             _posts = database.GetCollection<Post>("Posts");
         }
+
         public List<Post> Get() =>
             _posts.Find(post => true).ToList();
 
@@ -23,7 +24,7 @@ namespace Dab_SocialNetwork.Services
             _posts.Find<Post>(post => post.Id == id).FirstOrDefault();
 
         public List<Post> GetByAuthor(User user) =>
-            _posts.Find(post=>post.Author.Id== user.Id).ToList();
+            _posts.Find(post => post.Author.Id == user.Id).ToList();
 
         public List<Post> GetPostsInCircle(Circle circle) =>
             _posts.Find(post => post.ShownCircles.Contains(circle)).ToList();
@@ -37,13 +38,11 @@ namespace Dab_SocialNetwork.Services
             }
             return comments;
         }
-
         public Post Create(Post post)
         {
             _posts.InsertOne(post);
             return post;
         }
-
         public void Update(string id, Post postIn) =>
             _posts.ReplaceOne(post => post.Id == id, postIn);
 
@@ -54,7 +53,6 @@ namespace Dab_SocialNetwork.Services
             _posts.DeleteOne(post => post.Id == id);
 
         public void Empty() =>
-            _posts.DeleteMany(post => post.Id !=null);
+            _posts.DeleteMany(post => post.Id != null);
     }
 }
-

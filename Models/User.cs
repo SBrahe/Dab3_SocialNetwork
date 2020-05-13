@@ -28,12 +28,12 @@ namespace Dab_SocialNetwork.Models
         public string MobileNum { get; set; }
 
         [BsonElement("Circles")]
-        public List<Circle> Circles { get; set; }
+        public List<int> Circles { get; set; }
 
         [BsonElement("Blocked users")]
-        public List<User> BlockedUsers { get; set; }
+        public List<String> BlockedUsers { get; set; }
         
         [BsonElement("Followed users")]
-        public List<User> FollowedUsers { get; set; }
+        public List<String> FollowedUsers { get; set; }
     }
 }
