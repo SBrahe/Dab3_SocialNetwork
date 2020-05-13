@@ -71,9 +71,17 @@ namespace Dab_SocialNetwork
         {
             System.Console.WriteLine("Whose wall would you like to see?");
             var userWhoseWallToShowString = Console.ReadLine();
-            
-            User userWhoseWallToShow = userService.GetByName(userWhoseWallToShowString);
-            queries.ShowWallForFriend(userWhoseWallToShow,loggedInAs);
+
+            try
+            {
+                User userWhoseWallToShow = userService.GetByName(userWhoseWallToShowString);
+                queries.ShowWallForFriend(userWhoseWallToShow, loggedInAs);
+            }
+            catch
+            {
+                Console.WriteLine("Invalid name");
+                ShowOwnWall(loggedInAs);
+            }
         }
 
         private void ShowOwnWall(User loggedInAs)
