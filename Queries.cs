@@ -30,8 +30,15 @@ namespace Dab_SocialNetwork
             //make list of users followed by subject
             foreach (var userId in Subject.FollowedUsers)
             {
-                User UserToAdd = UserService.GetById(userId);
-                circlesFollowedBySubject.Add(CircleToAdd);
+                User UserToAdd = userService.GetById(userId);
+                usersFollowedBySubject.Add(UserToAdd);
+            }
+            
+            //make list of users blocked by subject
+            foreach (var userId in Subject.BlockedUsers)
+            {
+                User UserToAdd = userService.GetById(userId);
+                usersBlockedBySubject.Add(UserToAdd);
             }
             
             //***PULL POSTS***
@@ -46,16 +53,19 @@ namespace Dab_SocialNetwork
             foreach (var x in usersFollowedBySubject)
             {
                 List<Post> postsFromFollowedUser = postService.GetByAuthor(x);
-                postsFromFollowedUser.AddRange(postsFromFollowedUser);
+                postsInSubjectFeed.AddRange(postsFromFollowedUser);
             }
             
             //remove posts from blocked users
-            foreach (var x in usersFollowedBySubject)
+            foreach (var x in usersBlockedBySubject)
             {
-                List<Post> postsFromFollowedUser = postService.GetByAuthor(x);
-                postsFromFollowedUser.AddRange(postsFromFollowedUser);
+                List<Post> postsFromBlockedUser = postService.GetByAuthor(x);
+                var result = postsInSubjectFeed.Where(x => postsFromBlockedUser.All(y => x.Id != y.Id));
+                postsInSubjectFeed = result.ToList(); 
             }
             
+            postsInSubjectFeed = postsInSubjectFeed.OrderBy(p=>p.Created).ToList();
+
             Console.WriteLine($"-------------{Subject.Name}'s Feed-------------");
             for (var x = 0; x < postsInSubjectFeed.Count; x++)
             {
