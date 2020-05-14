@@ -130,14 +130,14 @@ namespace Dab_SocialNetwork
                     }
                 }
 
-                if (x.IsPublic == true)
+                if (post.IsPublic == true)
                 {
                     viewingFriendHasAccess = true;
                 }
 
                 if (viewingFriendHasAccess == true)
                 {
-                    postsThatViewerHasAccessTo.Add(x);
+                    postsThatViewerHasAccessTo.Add(post);
                 }
             }
 
@@ -174,7 +174,7 @@ namespace Dab_SocialNetwork
         {
             List<Post> postsOnWall = new List<Post>();
 
-            postsOnWall = _postService.GetByAuthor(wallOwner);
+            postsOnWall = _postService.GetPostByAuthor(wallOwner);
             
             Console.WriteLine($"-------------{wallOwner.Name}'s Wall-------------");
             for (var x = 0; x < postsOnWall.Count; x++)
@@ -218,7 +218,7 @@ namespace Dab_SocialNetwork
                 Comments = new List<Comment>()
             };
 
-            _postService.Create(post);
+            _postService.CreatePost(post);
         }
 
         public void CreateComment(User author, Post post)
@@ -235,7 +235,7 @@ namespace Dab_SocialNetwork
             };
 
             post.Comments.Add(comment);
-            _postService.Update(post.Id, post);
+            _postService.UpdatePost(post.Id, post);
         }
     }
 }
