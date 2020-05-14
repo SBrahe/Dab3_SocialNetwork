@@ -46,6 +46,10 @@ namespace Dab_SocialNetwork.Services
             _posts.InsertOne(post);
             return post;
         }
+        
+        public void UpdatePost(string id, Post postIn) =>
+            _posts.ReplaceOne(post => post.Id == id, postIn);
+
         public void RemovePost(Post postIn) =>
             _posts.DeleteOne(post => post.Id == postIn.Id);
 
