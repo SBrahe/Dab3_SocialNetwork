@@ -202,13 +202,37 @@ namespace Dab_SocialNetwork
 
         private void FollowUser(User loggedInAs)
         {
+            Console.WriteLine("Enter valid User to follow: ");
+            var usertoFollow = Console.ReadLine();
 
+            try
+            {
+                userService.GetUserByName(usertoFollow).FollowedUsers.Add(usertoFollow);
+
+            }
+            catch
+            {
+                Console.WriteLine("invalid user");
+                FollowUser(loggedInAs);
+            }
         }
 
         private void BlockUser(User loggedInAs)
         {
-            
+            Console.WriteLine("Enter valid User to block: ");
+            var usertoBlock = Console.ReadLine();
 
+            try
+            {
+                userService.GetUserByName(usertoBlock).BlockedUsers.Add(usertoBlock);
+                
+            }
+            catch
+            {
+               Console.WriteLine("invalid user");
+               BlockUser(loggedInAs);
+            }
+            
         }
     }
 }
