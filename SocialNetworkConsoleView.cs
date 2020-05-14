@@ -101,6 +101,7 @@ namespace Dab_SocialNetwork
         
         private void CreatePost(User loggedInAs)
         {
+            var feeling=Feeling.Jævnt_Utilfreds;
             var isPublic=true;
             Console.WriteLine("Public Post? (y/n)");
             var publicprivate = Console.ReadLine();
@@ -112,20 +113,74 @@ namespace Dab_SocialNetwork
             {
                 isPublic = false;
             }
-            
-            Console.WriteLine("Enter Content of Post");
-            var content = Console.ReadLine();
 
-            Console.WriteLine();
-            Post post = new Post
+            Console.WriteLine("Write text (t) or set a feeling (f)");
+            var choice = Console.ReadLine();
+            if (choice == "t")
             {
-                Author = loggedInAs,
-                PostText = content,
-                IsPublic = isPublic,
-                Created = DateTime.Now,
-                Comments = new List<Comment>()
-            };
-            queries.CreatePost(loggedInAs,content,isPublic);
+                Console.WriteLine("Enter Content of Post");
+                var content = Console.ReadLine();
+
+                Console.WriteLine();
+                Post post = new Post
+                {
+                    Author = loggedInAs,
+                    PostText = content,
+                    IsPublic = isPublic,
+                    Created = DateTime.Now,
+                    Comments = new List<Comment>()
+                };
+                queries.CreatePost(loggedInAs, content, isPublic);
+            }
+            else if (choice == "f")
+            {
+                Console.WriteLine("Set a feeling: \n 1: Festlig \n 2: Gammel \n 3: Glad \n 4: Jævnt utilfreds \n 5: Ked af Det \n 6: Sur");
+                var id =Console.ReadLine();
+                switch (id)
+                {
+                    case "1":
+                        Console.WriteLine("");
+                        feeling = Feeling.Festlig;
+                        break;
+                    case "2":
+                        System.Console.WriteLine("");
+                        feeling = Feeling.Gammel;
+                        break;
+                    case "3":
+                        System.Console.WriteLine("");
+                        feeling = Feeling.Glad;
+                        break;
+                    case "4":
+                        System.Console.WriteLine("");
+                        feeling = Feeling.Jævnt_Utilfreds;
+                        break;
+                    case "5":
+                        System.Console.WriteLine("");
+                        feeling = Feeling.Ked_af_det;
+                        break;
+                    case "6":
+                        System.Console.WriteLine("");
+                        feeling = Feeling.Sur;
+                        break;
+                }
+
+                
+                Post post = new Post
+                {
+                    Author = loggedInAs,
+                    PostFeeling = feeling,
+                    IsPublic = isPublic,
+                    Created = DateTime.Now,
+                    Comments = new List<Comment>()
+                };
+                queries.CreatePost(loggedInAs,feeling.ToString(), isPublic);
+            }
+            else
+            {
+                Console.WriteLine("invalid input");
+                CreatePost(loggedInAs);
+            }
+            
         }
         
         private void CreateComment(User loggedInAs)
@@ -152,6 +207,7 @@ namespace Dab_SocialNetwork
 
         private void BlockUser(User loggedInAs)
         {
+            
 
         }
     }
