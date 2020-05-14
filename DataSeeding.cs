@@ -187,14 +187,14 @@ namespace Dab_SocialNetwork
         }
 
         //-----------------------BlockedUser seeding------------------------//
-
+        
         public void BlockedUserSeed()
         {
             var jodlebirge = _userService.GetUserByName("Jodle Birge");
             jodlebirge.BlockedUsers.Add("Toke");
             
             var grauballemanden = _userService.GetUserByName("GrauballeManden");
-            jodlebirge.BlockedUsers.Add("Finn Nørbygaard");
+            grauballemanden.BlockedUsers.Add("Finn Nørbygaard");
 
         }
 

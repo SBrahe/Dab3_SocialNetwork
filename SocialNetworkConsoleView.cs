@@ -4,6 +4,11 @@ using System.Collections.Generic;
 using Dab_SocialNetwork.Models;
 using Dab_SocialNetwork.Services;
 
+//jodle birge har blokeret toke
+//jodle birge er med i cirklen "Det musik for mig"
+//jodle birge følger Ib Grønbech
+
+
 namespace Dab_SocialNetwork
 {
     public class SocialNetworkConsoleView
