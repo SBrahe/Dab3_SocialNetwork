@@ -124,7 +124,7 @@ namespace Dab_SocialNetwork
                 foreach (var circle in postCircles)
                 {
                     if (circle.Members == null) continue;
-                    if (circle.Members.Contains(viewer)
+                    if (circle.Members.Contains(viewer.Id))
                     {
                         viewingFriendHasAccess = true;
                     }

@@ -190,21 +190,12 @@ namespace Dab_SocialNetwork
 
         public void BlockedUserSeed()
         {
-            var blockuser1 = _userService.GetUserByName("Jodle Birge");
-            blockuser1.BlockedUsers = new List<User>()
-            {
-                _userService.GetUserByName("´Toke")
-            };
+            var jodlebirge = _userService.GetUserByName("Jodle Birge");
+            jodlebirge.BlockedUsers.Add("Toke");
+            
+            var grauballemanden = _userService.GetUserByName("GrauballeManden");
+            jodlebirge.BlockedUsers.Add("Finn Nørbygaard");
 
-            _userService.UpdateUser("Jodle Birge", blockuser1);
-
-            var blockuser2 = _userService.GetUserByName("GrauballeManden");
-            blockuser2.BlockedUsers = new List<User>()
-            {
-                _userService.GetUserByName("Finn Nørbygaard")
-            };
-
-            _userService.UpdateUser("GrauballeManden", blockuser2);
         }
 
         //----------------------Post and comment seeding------------------------//
