@@ -35,4 +35,3 @@ ___________Opstart________________
 Programmet kører i konsollen og startes ved at køre hele Solution. 
 Man er fra starten logget ind som 'Jodle Birge' og kan bruge det sociale netværk som ham.
 
-1. Man bliver herefter præsenteret for en Menu, hvorfra man kan vælge hvilken hvad man ønsker at foretage sig.
