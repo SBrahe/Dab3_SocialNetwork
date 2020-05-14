@@ -254,7 +254,7 @@ namespace Dab_SocialNetwork
                     Author = _users[2],
                     IsPublic = true,
                     PostType = PostType.Feeling,
-                    PostFeeling = Feeling.Jævnt_Utilfreds,
+                    PostFeeling = Feeling.Jaevnt_Utilfreds,
                     ShownCircles = new List<int> {_circles[3].Id},
                     Created = DateTime.Now,
                 },

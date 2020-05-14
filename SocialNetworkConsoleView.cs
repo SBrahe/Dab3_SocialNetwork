@@ -152,7 +152,7 @@ namespace Dab_SocialNetwork
                         break;
                     case "4":
                         System.Console.WriteLine("");
-                        feeling = Feeling.J�vnt_Utilfreds;
+                        feeling = Feeling.Jaevnt_Utilfreds;
                         break;
                     case "5":
                         System.Console.WriteLine("");
@@ -186,7 +186,7 @@ namespace Dab_SocialNetwork
         private void CreateComment(User loggedInAs)
         {
             Console.WriteLine("These are the last 5 posts. Which one do you want to comment on?");
-            List<Post> posts = postService.Get();
+            List<Post> posts = postService.GetAllPosts();
             for (int x = 1; x <= 5; x++)
             {
                 Console.WriteLine(x+": By "+posts[x].Author.Name+". Time: "+posts[x].Created);
