@@ -26,12 +26,14 @@ namespace Dab_SocialNetwork
             
             while (true)
             {
-                System.Console.WriteLine($"You're logged in as {loggedInAs.Name}. What would you like to do?");
-                System.Console.WriteLine("1: Show my feed");
-                System.Console.WriteLine("2: Show a friend's wall");
-                System.Console.WriteLine("3: Show own wall");
-                System.Console.WriteLine("4: Create post");
-                System.Console.WriteLine("5: Create comment");
+                Console.WriteLine($"You're logged in as {loggedInAs.Name}. What would you like to do?");
+                Console.WriteLine("1: Show my feed");
+                Console.WriteLine("2: Show a friend's wall");
+                Console.WriteLine("3: Show own wall");
+                Console.WriteLine("4: Create post");
+                Console.WriteLine("5: Create comment");
+                Console.WriteLine("6: Follow user");
+                Console.WriteLine("7: Block user");
 
                 ConsoleKeyInfo consoleKeyInfo = Console.ReadKey();
                 switch (consoleKeyInfo.KeyChar)
@@ -56,6 +58,14 @@ namespace Dab_SocialNetwork
                         System.Console.WriteLine("");
                         CreateComment(loggedInAs);
                         break;
+                    case '6':
+                        System.Console.WriteLine("");
+                        FollowUser(loggedInAs);
+                        break;
+                    case '7':
+                        System.Console.WriteLine("");
+                        BlockUser(loggedInAs);
+                        break;
                     default:
                         break;
                 }
@@ -71,9 +81,17 @@ namespace Dab_SocialNetwork
         {
             System.Console.WriteLine("Whose wall would you like to see?");
             var userWhoseWallToShowString = Console.ReadLine();
-            
-            User userWhoseWallToShow = userService.GetByName(userWhoseWallToShowString);
-            queries.ShowWallForFriend(userWhoseWallToShow,loggedInAs);
+
+            try
+            {
+                User userWhoseWallToShow = userService.GetByName(userWhoseWallToShowString);
+                queries.ShowWallForFriend(userWhoseWallToShow, loggedInAs);
+            }
+            catch
+            {
+                Console.WriteLine("Invalid name");
+                ShowOwnWall(loggedInAs);
+            }
         }
 
         private void ShowOwnWall(User loggedInAs)
@@ -125,6 +143,16 @@ namespace Dab_SocialNetwork
             var post = posts[keyasint];
 
             queries.CreateComment(loggedInAs,post);
+        }
+
+        private void FollowUser(User loggedInAs)
+        {
+
+        }
+
+        private void BlockUser(User loggedInAs)
+        {
+
         }
     }
 }
