@@ -2,8 +2,6 @@ ___________Gruppe Medlemmer_______
 Oskar Vedel - au580178
 Sebastian Brahe - au611810
 
-
-
 ___________Schema_________________
 Vores entiteter kan ses på diagrammet der findes i mappen. Vi har valgt entiterne - 'User','Post','Comment' og 'Circle'.
 Disse er valgt ud fra opgavebeskrivelsen da disse bliver nødt til at blive lagret, og have attributer tilhørende sig. 
@@ -16,10 +14,8 @@ ville dermed indeholde hele user objekter.
 
 I forlængelse af ovenstående benytter vi i forvejen ikke al User data i 'FollowedUseres' og 'BlockedUsers' og derfor ville det være et spild.
 
-
-
 ___________Sharding_______________
-Sharding går ud på at distribuerer applikationens data ud på flere maskiner. Dette vil man typisk gøre ved store datamængder.
+Sharding går ud på at distribuere applikationens data ud på flere maskiner. Dette vil man typisk gøre ved store datamængder.
 I vores tilfælde vil et socialt netværk efter al forventing benytte meget 'querying' og dette vil derfor kunne blive nødvendigt
 at benytte sig af sharding.
 
@@ -29,16 +25,11 @@ dataen skulle splittes op.
 
 For at kunne splitte dataen ud i ligefordelt shards, skal der benyttes en shard key. Denne er vigtig at vælge da et forkert valg potentielt
 kan ende med at ødelægge kørslen af programmet, og ikke skabe nogle forbedringer.
-i vores tilfælde med det sociale netværk, kunne et bud på en shard key være id'et for en 'user'. Dette vil gøre at alle shards
+I vores tilfælde med det sociale netværk, kunne et bud på en shard key være id'et for en 'user'. Dette vil gøre at alle shards
 for en user kan være på én shard, hvor man dermed kan få alt den relevante data for en user, såsom comments, post, circles osv.
-
-
-
 
 ___________Mangler________________
 Der er ikke taget højde for log in i denne implementering.
-
-
 
 ___________Opstart________________
 Programmet kører i konsollen og startes ved at køre hele Solution. 
