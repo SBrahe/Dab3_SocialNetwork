@@ -37,7 +37,7 @@ namespace Dab_SocialNetwork.Services
             _users.InsertOne(user);
             return user;
         }
-        public void UpdateUserName(string name, User userIn) =>
+        public void UpdateUser(string name, User userIn) =>
             _users.ReplaceOne(user => user.Name == name, userIn);
 
         public void RemoveUser(User userIn) =>

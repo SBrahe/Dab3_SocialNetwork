@@ -25,8 +25,8 @@ namespace Dab_SocialNetwork
         //-----------------------Empty Database------------------------//
         public void EmptyDatabase()
         {
-            _userService.Empty();
-            _postService.Empty();
+            _userService.DeleteAllUsers();
+            _postService.DeleteAllPosts();
         }
 
         //-----------------------User seeding------------------------//
@@ -41,9 +41,9 @@ namespace Dab_SocialNetwork
                     Age = 49,
                     Email = "JodleBirge@Toppen.dk",
                     MobileNum = "12345678",
-                    Circles = new List<Circle>(),
-                    BlockedUsers = new List<User>(),
-                    FollowedUsers = new List<User>()
+                    Circles = new List<int>(),
+                    BlockedUsers = new List<String>(),
+                    FollowedUsers = new List<String>()
                 },
 
                 new User
@@ -53,9 +53,9 @@ namespace Dab_SocialNetwork
                     Age = 42,
                     Email = "Ibberen@NyTrailer.dk",
                     MobileNum = "87654321",
-                    Circles = new List<Circle>(),
-                    BlockedUsers = new List<User>(),
-                    FollowedUsers = new List<User>()
+                    Circles = new List<int>(),
+                    BlockedUsers = new List<String>(),
+                    FollowedUsers = new List<String>()
                 },
 
                 new User
@@ -65,9 +65,9 @@ namespace Dab_SocialNetwork
                     Age = 32,
                     Email = "Trælstype@Ditmer.dk",
                     MobileNum = "80000085",
-                    Circles = new List<Circle>(),
-                    BlockedUsers = new List<User>(),
-                    FollowedUsers = new List<User>()
+                    Circles = new List<int>(),
+                    BlockedUsers = new List<String>(),
+                    FollowedUsers = new List<String>()
                 },
 
                 new User
@@ -77,9 +77,9 @@ namespace Dab_SocialNetwork
                     Age = 55,
                     Email = "Ruineret@Krisetid.dk",
                     MobileNum = "00000000",
-                    Circles = new List<Circle>(),
-                    BlockedUsers = new List<User>(),
-                    FollowedUsers = new List<User>()
+                    Circles = new List<int>(),
+                    BlockedUsers = new List<String>(),
+                    FollowedUsers = new List<String>()
                 },
 
                 new User
@@ -89,9 +89,9 @@ namespace Dab_SocialNetwork
                     Age = 740,
                     Email = "SikkeEnDag@Mosemail.dk",
                     MobileNum = "22445543",
-                    Circles = new List<Circle>(),
-                    BlockedUsers = new List<User>(),
-                    FollowedUsers = new List<User>()
+                    Circles = new List<int>(),
+                    BlockedUsers = new List<String>(),
+                    FollowedUsers = new List<String>()
                 },
 
                 new User
@@ -101,15 +101,15 @@ namespace Dab_SocialNetwork
                     Age = 32,
                     Email = "Marianne-Birgitte@Marianne-Birgitte.dk",
                     MobileNum = "96700012",
-                    Circles = new List<Circle>(),
-                    BlockedUsers = new List<User>(),
-                    FollowedUsers = new List<User>()
+                    Circles = new List<int>(),
+                    BlockedUsers = new List<String>(),
+                    FollowedUsers = new List<String>()
                 },
             };
 
             foreach (var user in _users)
             {
-                _userService.Create(user);
+                _userService.CreateUser(user);
             }
         }
 
@@ -122,17 +122,17 @@ namespace Dab_SocialNetwork
                 new Circle
                 {
                     Name = "Det musik for mig",
-                    Members = new List<User>()
+                    Members = new List<String>()
                 },
                 new Circle
                 {
                     Name = "Der var engang",
-                    Members = new List<User>()
+                    Members = new List<String>()
                 },
                 new Circle
                 {
                     Name = "Trailerstuen",
-                    Members = new List<User>()
+                    Members = new List<String>()
                 },
 
                 new Circle
@@ -141,91 +141,70 @@ namespace Dab_SocialNetwork
                 }
             };
 
-            var circleuser1 = _userService.GetByName("Jodle Birge");
-            circleuser1.Circles.Add(_circles[0]);
-            _userService.Update("Jodle Birge", circleuser1);
+            var circleuser1 = _userService.GetUserByName("Jodle Birge");
+            circleuser1.Circles.Add(_circles[0].Id);
+            _userService.UpdateUser("Jodle Birge", circleuser1);
 
-            var circleuser2 = _userService.GetByName("Ib Grønbech");
-            circleuser2.Circles.Add(_circles[0]);
-            circleuser2.Circles.Add(_circles[1]);
-            circleuser2.Circles.Add(_circles[2]);
-            _userService.Update("Ib Grønbech", circleuser2);
+            var circleuser2 = _userService.GetUserByName("Ib Grønbech");
+            circleuser2.Circles.Add(_circles[0].Id);
+            circleuser2.Circles.Add(_circles[1].Id);
+            circleuser2.Circles.Add(_circles[2].Id);
+            _userService.UpdateUser("Ib Grønbech", circleuser2);
 
-            var circleuser3 = _userService.GetByName("Toke");
-            circleuser3.Circles.Add(_circles[3]);
-            _userService.Update("Toke", circleuser3);
+            var circleuser3 = _userService.GetUserByName("Toke");
+            circleuser3.Circles.Add(_circles[3].Id);
+            _userService.UpdateUser("Toke", circleuser3);
 
-            var circleuser4 = _userService.GetByName("Finn Nørbygaard");
-            circleuser4.Circles.Add(_circles[0]);
-            circleuser4.Circles.Add(_circles[2]);
-            _userService.Update("Finn Nørbygaard", circleuser4);
+            var circleuser4 = _userService.GetUserByName("Finn Nørbygaard");
+            circleuser4.Circles.Add(_circles[0].Id);
+            circleuser4.Circles.Add(_circles[2].Id);
+            _userService.UpdateUser("Finn Nørbygaard", circleuser4);
 
-            var circleuser5 = _userService.GetByName("GrauballeManden");
-            circleuser5.Circles.Add(_circles[3]);
-            _userService.Update("GrauballeManden", circleuser5);
+            var circleuser5 = _userService.GetUserByName("GrauballeManden");
+            circleuser5.Circles.Add(_circles[3].Id);
+            _userService.UpdateUser("GrauballeManden", circleuser5);
 
-            var circleuser6 = _userService.GetByName("Marianne-Birgitte");
-            circleuser6.Circles.Add(_circles[1]);
-            circleuser6.Circles.Add(_circles[3]);
-            _userService.Update("Marianne-Birgitte", circleuser6);
+            var circleuser6 = _userService.GetUserByName("Marianne-Birgitte");
+            circleuser6.Circles.Add(_circles[1].Id);
+            circleuser6.Circles.Add(_circles[3].Id);
+            _userService.UpdateUser("Marianne-Birgitte", circleuser6);
         }
 
         //-----------------------FollowedUser seeding------------------------//
         public void FollowedUserSeed()
         {
-            var followuser1 = _userService.GetByName("Jodle Birge");
-            followuser1.FollowedUsers = new List<User>()
-            {
-                _userService.GetByName("Ib Grønbech")
-            };
-
-            _userService.Update("JodleBirge", followuser1);
-
-            var followuser2 = _userService.GetByName("Ib Grønbech");
-            followuser2.FollowedUsers = new List<User>()
-            {
-                _userService.GetByName("Jodle Birge")
-            };
-
-            _userService.Update("Ib Grønbech", followuser2);
-
-
-            var followuser3 = _userService.GetByName("Finn Nørbygaard");
-            followuser3.FollowedUsers = new List<User>()
-            {
-                _userService.GetByName("Jodle Birge")
-            };
-
-            _userService.Update("Finn Nørbygaard", followuser3);
-
-            var followuser4 = _userService.GetByName("Marianne-Birgitte");
-            followuser1.FollowedUsers = new List<User>()
-            {
-                _userService.GetByName("GrauballeManden")
-            };
-
-            _userService.Update("Marianne-Birgitte", followuser4);
+            var jodlebirge = _userService.GetUserByName("Jodle Birge");
+            jodlebirge.FollowedUsers.Add("Ib Grønbech");
+            
+            var ibgroenbech = _userService.GetUserByName("Ib Grønbech");
+            ibgroenbech.FollowedUsers.Add("Jodle Birge");
+            
+            var finnnoerbygaard = _userService.GetUserByName("Ib Grønbech");
+            finnnoerbygaard.FollowedUsers.Add("Jodle Birge");
+            
+            var mariannebirgitte = _userService.GetUserByName("Marianne-Birgitte");
+            mariannebirgitte.FollowedUsers.Add("GrauballeManden");
         }
 
         //-----------------------BlockedUser seeding------------------------//
 
         public void BlockedUserSeed()
         {
-            var blockuser1 = _userService.GetByName("Jodle Birge");
+            var blockuser1 = _userService.GetUserByName("Jodle Birge");
             blockuser1.BlockedUsers = new List<User>()
             {
-                _userService.GetByName("´Toke")
+                _userService.GetUserByName("´Toke")
             };
 
-            _userService.Update("Jodle Birge", blockuser1);
+            _userService.UpdateUser("Jodle Birge", blockuser1);
 
-            var blockuser2 = _userService.GetByName("GrauballeManden");
+            var blockuser2 = _userService.GetUserByName("GrauballeManden");
             blockuser2.BlockedUsers = new List<User>()
             {
-                _userService.GetByName("Finn Nørbygaard")
+                _userService.GetUserByName("Finn Nørbygaard")
             };
 
-            _userService.Update("GrauballeManden", blockuser2);
+            _userService.UpdateUser("GrauballeManden", blockuser2);
         }
 
         //----------------------Post and comment seeding------------------------//
@@ -239,7 +218,7 @@ namespace Dab_SocialNetwork
                     IsPublic = false,
                     PostType = PostType.Text,
                     PostText = "Peter lå i telt",
-                    ShownCircles = new List<Circle> {_circles[0]},
+                    ShownCircles = new List<int> {_circles[0].Id},
                     Created = DateTime.Now,
                     Comments = new List<Comment>()
                     {
@@ -265,7 +244,7 @@ namespace Dab_SocialNetwork
                     IsPublic = false,
                     PostType = PostType.Text,
                     PostText = "Jeg har fået trailer og mor har fået mave på",
-                    ShownCircles = new List<Circle> {_circles[0]},
+                    ShownCircles = new List<int> {_circles[0].Id},
                     Created = DateTime.Now,
                     Comments = new List<Comment>()
                     {
@@ -285,7 +264,7 @@ namespace Dab_SocialNetwork
                     IsPublic = true,
                     PostType = PostType.Feeling,
                     PostFeeling = Feeling.Jævnt_Utilfreds,
-                    ShownCircles = new List<Circle> {_circles[3]},
+                    ShownCircles = new List<int> {_circles[3].Id},
                     Created = DateTime.Now,
                 },
 
@@ -295,7 +274,7 @@ namespace Dab_SocialNetwork
                     IsPublic = false,
                     PostType = PostType.Text,
                     PostText = "Vi på vejen igen",
-                    ShownCircles = new List<Circle> {_circles[2]},
+                    ShownCircles = new List<int> {_circles[2].Id},
                     Created = DateTime.Now,
                     Comments = new List<Comment>()
                     {
@@ -314,7 +293,7 @@ namespace Dab_SocialNetwork
                     IsPublic = false,
                     PostType = PostType.Feeling,
                     PostFeeling = Feeling.Gammel,
-                    ShownCircles = new List<Circle> {_circles[3]},
+                    ShownCircles = new List<int> {_circles[3].Id},
                     Created = DateTime.Now,
                     Comments = new List<Comment>()
                     {
@@ -337,7 +316,7 @@ namespace Dab_SocialNetwork
                     PostType = PostType.Text,
                     PostText =
                         "Jeg synes vi som samfund bør fordømme enhver kultur/samfund, hvor det praktiseres at voksne legalt kan gifte sig med børn.",
-                    ShownCircles = new List<Circle> {_circles[1]},
+                    ShownCircles = new List<int> {_circles[1].Id},
                     Created = DateTime.Now,
                     Comments = new List<Comment>()
                     {
@@ -353,7 +332,7 @@ namespace Dab_SocialNetwork
 
             foreach (var post_ in _posts)
             {
-                _postService.Create(post_);
+                _postService.CreatePost(post_);
             }
         }
     }

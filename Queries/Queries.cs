@@ -174,7 +174,7 @@ namespace Dab_SocialNetwork
         {
             List<Post> postsOnWall = new List<Post>();
 
-            postsOnWall = _postService.GetByAuthor(wallOwner);
+            postsOnWall = _postService.GetPostsByAuthor(wallOwner);
             
             Console.WriteLine($"-------------{wallOwner.Name}'s Wall-------------");
             for (var x = 0; x < postsOnWall.Count; x++)
