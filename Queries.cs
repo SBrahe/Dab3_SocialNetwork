@@ -8,9 +8,9 @@ namespace Dab_SocialNetwork
 {
     class Queries
     {
-        private UserService userService = new UserService();
-        private PostService postService = new PostService();
-        private CircleService circleService = new CircleService();
+        private readonly UserService _userService = new UserService();
+        private readonly PostService _postService = new PostService();
+        private readonly CircleService _circleService = new CircleService();
 
         public void ShowFeedForUser(User Subject)
         {
@@ -22,36 +22,36 @@ namespace Dab_SocialNetwork
             //make list of users followed by subject
             foreach (var userId in Subject.FollowedUsers)
             {
-                User UserToAdd = userService.GetById(userId);
-                usersFollowedBySubject.Add(UserToAdd);
+                User userToAdd = _userService.GetUserById(userId);
+                usersFollowedBySubject.Add(userToAdd);
             }
             
             //make list of users blocked by subject
             foreach (var userId in Subject.BlockedUsers)
             {
-                User UserToAdd = userService.GetById(userId);
-                usersBlockedBySubject.Add(UserToAdd);
+                User userToAdd = _userService.GetUserById(userId);
+                usersBlockedBySubject.Add(userToAdd);
             }
             
             //***PULL POSTS***
             //pull posts from circles followed by subject
             foreach (var circleId in Subject.Circles)
             {
-                List<Post> postsInCircle = postService.GetPostsByCircleId(circleId);
+                List<Post> postsInCircle = _postService.GetPostsByCircleId(circleId);
                 postsInSubjectFeed.AddRange(postsInCircle);
             }
             
             //pull posts from users followed by subject
             foreach (var x in usersFollowedBySubject)
             {
-                List<Post> postsFromFollowedUser = postService.GetByAuthor(x);
+                List<Post> postsFromFollowedUser = _postService.GetByAuthor(x);
                 postsInSubjectFeed.AddRange(postsFromFollowedUser);
             }
             
             //remove posts from blocked users
             foreach (var x in usersBlockedBySubject)
             {
-                List<Post> postsFromBlockedUser = postService.GetByAuthor(x);
+                List<Post> postsFromBlockedUser = _postService.GetByAuthor(x);
                 var result = postsInSubjectFeed.Where(x => postsFromBlockedUser.All(y => x.Id != y.Id));
                 postsInSubjectFeed = result.ToList(); 
             }
@@ -100,17 +100,31 @@ namespace Dab_SocialNetwork
         {
             List<Post> postsOnWall = new List<Post>();
             List<Post> postsThatViewerHasAccessTo = new List<Post>();
-
-            postsOnWall.AddRange(postService.GetByAuthor(wallOwner));
-            foreach (var x in postsOnWall)
+            
+            //add all wall owners posts to list of posts on wall
+            postsOnWall.AddRange(_postService.GetByAuthor(wallOwner));
+            
+            //check if viewing friend has access to each post
+            foreach (var post in postsOnWall)
             {
                 var viewingFriendHasAccess = false;
-                List<int> postCircles = x.ShownCircles;
-                if (x.ShownCircles == null) continue;
-                foreach (var y in postCircles)
+                
+                //break if list is empty
+                if (post.ShownCircles == null) continue;
+                
+                //make list of circles that post is shown in
+                List<Circle> postCircles = new List<Circle>();
+                foreach (var circleId in post.ShownCircles)
                 {
-                    if (y.Members == null) continue;
-                    if (y.Members.Contains(userService.GetByName(viewer.Name)))
+                    var circleToAdd = _circleService.GetCircleById(circleId);
+                    postCircles.Add(circleToAdd);
+                }
+
+                //check if subject is member of circles
+                foreach (var circle in postCircles)
+                {
+                    if (circle.Members == null) continue;
+                    if (circle.Members.Contains(viewer)
                     {
                         viewingFriendHasAccess = true;
                     }
@@ -160,7 +174,7 @@ namespace Dab_SocialNetwork
         {
             List<Post> postsOnWall = new List<Post>();
 
-            postsOnWall = postService.GetByAuthor(wallOwner);
+            postsOnWall = _postService.GetByAuthor(wallOwner);
             
             Console.WriteLine($"-------------{wallOwner.Name}'s Wall-------------");
             for (var x = 0; x < postsOnWall.Count; x++)
@@ -204,7 +218,7 @@ namespace Dab_SocialNetwork
                 Comments = new List<Comment>()
             };
 
-            postService.Create(post);
+            _postService.Create(post);
         }
 
         public void CreateComment(User author, Post post)
@@ -221,7 +235,7 @@ namespace Dab_SocialNetwork
             };
 
             post.Comments.Add(comment);
-            postService.Update(post.Id, post);
+            _postService.Update(post.Id, post);
         }
     }
 }

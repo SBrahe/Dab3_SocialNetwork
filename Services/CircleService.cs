@@ -15,10 +15,10 @@ namespace Dab_SocialNetwork.Services
             _circles = database.GetCollection<Circle>("Circles");
         }
 
+        //GETS
         public List<Circle> GetAllCircles() =>
             _circles.Find(user => true).ToList();
-
-        public Circle GetById(int id) =>
+        public Circle GetCircleById(int id) =>
             _circles.Find<Circle>(circle => circle.Id == id).FirstOrDefault();
 
         public Circle GetCircleByName(string circleName) =>

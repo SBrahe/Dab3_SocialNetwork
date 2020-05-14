@@ -15,6 +15,6 @@ namespace Dab_SocialNetwork.Models
         public string Name { get; set; }
 
         [BsonElement("Members of circle")]
-        public List<User> Members { get; set; }
+        public List<string> Members { get; set; }
     }
 }

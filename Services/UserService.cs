@@ -9,42 +9,41 @@ namespace Dab_SocialNetwork.Services
     class UserService
     {
         private readonly IMongoCollection<User> _users;
-        private readonly IMongoCollection<Circle> _circles;
 
         public UserService()
         {
             var client = new MongoClient("mongodb://localhost:27017");
             var database = client.GetDatabase("SocialNetworkDb");
-
             _users = database.GetCollection<User>("Users");
-            _circles = database.GetCollection<Circle>("Circles");
         }
 
-        public List<User> Get() =>
+        //GETS
+        public List<User> GetAllUsers() =>
             _users.Find(user => true).ToList();
+        
+        public List<User> GetUsersByCircleId(int circleId) =>
+            _users.Find(user => user.Circles.Contains(circleId)).ToList();
 
-        public User GetById(string id) =>
+        public User GetUserById(string id) =>
             _users.Find<User>(user => user.Id == id).FirstOrDefault();
 
-        public User GetByName(string name) =>
+        public User GetUserByName(string name) =>
             _users.Find<User>(user => user.Name == name).FirstOrDefault();
-        
-        public User Create(User user)
+
+
+        //EDITS
+        public User CreateUser(User user)
         {
             _users.InsertOne(user);
             return user;
         }
-
-        public void Update(string name, User userIn) =>
+        public void UpdateUserName(string name, User userIn) =>
             _users.ReplaceOne(user => user.Name == name, userIn);
 
-        public void Remove(User userIn) =>
+        public void RemoveUser(User userIn) =>
             _users.DeleteOne(user => user.Name == userIn.Name);
-
-        public void Remove(string name) =>
-            _users.DeleteOne(user => user.Name== name);
-
-        public void Empty() =>
+        
+        public void DeleteAllUsers() =>
             _users.DeleteMany(user => user.Name!=null);
     }
 }

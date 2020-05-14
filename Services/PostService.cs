@@ -17,16 +17,17 @@ namespace Dab_SocialNetwork.Services
             _posts = database.GetCollection<Post>("Posts");
         }
 
-        public List<Post> Get() =>
+        //GETS
+        public List<Post> GetAllPosts() =>
             _posts.Find(post => true).ToList();
 
-        public Post GetById(string id) =>
+        public Post GetPostById(string id) =>
             _posts.Find<Post>(post => post.Id == id).FirstOrDefault();
 
-        public List<Post> GetByAuthor(User user) =>
+        public List<Post> GetPostByAuthor(User user) =>
             _posts.Find(post => post.Author.Id == user.Id).ToList();
 
-        public List<Comment> GetComments(Post post)
+        public List<Comment> GetPostComments(Post post)
         {
             List<Comment> comments = new List<Comment>();
             foreach (var comment_ in post.Comments)
@@ -38,21 +39,17 @@ namespace Dab_SocialNetwork.Services
 
         public List<Post> GetPostsByCircleId(int circleId) =>
             _posts.Find(post => post.ShownCircles.Contains(circleId)).ToList();
-        public Post Create(Post post)
+        
+        //EDITS
+        public Post CreatePost(Post post)
         {
             _posts.InsertOne(post);
             return post;
         }
-        public void Update(string id, Post postIn) =>
-            _posts.ReplaceOne(post => post.Id == id, postIn);
-
-        public void Remove(Post postIn) =>
+        public void RemovePost(Post postIn) =>
             _posts.DeleteOne(post => post.Id == postIn.Id);
 
-        public void Remove(string id) =>
-            _posts.DeleteOne(post => post.Id == id);
-
-        public void Empty() =>
+        public void DeleteAllPosts() =>
             _posts.DeleteMany(post => post.Id != null);
     }
 }
