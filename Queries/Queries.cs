@@ -44,14 +44,14 @@ namespace Dab_SocialNetwork
             //pull posts from users followed by subject
             foreach (var x in usersFollowedBySubject)
             {
-                List<Post> postsFromFollowedUser = _postService.GetByAuthor(x);
+                List<Post> postsFromFollowedUser = _postService.GetPostByAuthor(x);
                 postsInSubjectFeed.AddRange(postsFromFollowedUser);
             }
             
             //remove posts from blocked users
             foreach (var x in usersBlockedBySubject)
             {
-                List<Post> postsFromBlockedUser = _postService.GetByAuthor(x);
+                List<Post> postsFromBlockedUser = _postService.GetPostByAuthor(x);
                 var result = postsInSubjectFeed.Where(x => postsFromBlockedUser.All(y => x.Id != y.Id));
                 postsInSubjectFeed = result.ToList(); 
             }
@@ -102,7 +102,7 @@ namespace Dab_SocialNetwork
             List<Post> postsThatViewerHasAccessTo = new List<Post>();
             
             //add all wall owners posts to list of posts on wall
-            postsOnWall.AddRange(_postService.GetByAuthor(wallOwner));
+            postsOnWall.AddRange(_postService.GetPostByAuthor(wallOwner));
             
             //check if viewing friend has access to each post
             foreach (var post in postsOnWall)
