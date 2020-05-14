@@ -14,7 +14,7 @@ namespace Dab_SocialNetwork.Models
     enum Feeling
     {
         Glad,
-        Jævnt_Utilfreds,
+        Jaevnt_Utilfreds,
         Sur,
         Ked_af_det,
         Festlig,

@@ -21,7 +21,7 @@ namespace Dab_SocialNetwork
 
         public void LaunchSocialNetwork()
         {
-            User loggedInAs = userService.GetByName("Jodle Birge");
+            User loggedInAs = userService.GetUserByName("Jodle Birge");
             Console.WriteLine("Social Network launched");
             
             while (true)
@@ -84,7 +84,7 @@ namespace Dab_SocialNetwork
 
             try
             {
-                User userWhoseWallToShow = userService.GetByName(userWhoseWallToShowString);
+                User userWhoseWallToShow = userService.GetUserByName(userWhoseWallToShowString);
                 queries.ShowWallForFriend(userWhoseWallToShow, loggedInAs);
             }
             catch
@@ -101,7 +101,7 @@ namespace Dab_SocialNetwork
         
         private void CreatePost(User loggedInAs)
         {
-            var feeling=Feeling.Jævnt_Utilfreds;
+            var feeling=Feeling.Jaevnt_Utilfreds;
             var isPublic=true;
             Console.WriteLine("Public Post? (y/n)");
             var publicprivate = Console.ReadLine();
@@ -134,7 +134,7 @@ namespace Dab_SocialNetwork
             }
             else if (choice == "f")
             {
-                Console.WriteLine("Set a feeling: \n 1: Festlig \n 2: Gammel \n 3: Glad \n 4: Jævnt utilfreds \n 5: Ked af Det \n 6: Sur");
+                Console.WriteLine("Set a feeling: \n 1: Festlig \n 2: Gammel \n 3: Glad \n 4: Jï¿½vnt utilfreds \n 5: Ked af Det \n 6: Sur");
                 var id =Console.ReadLine();
                 switch (id)
                 {
@@ -152,7 +152,7 @@ namespace Dab_SocialNetwork
                         break;
                     case "4":
                         System.Console.WriteLine("");
-                        feeling = Feeling.Jævnt_Utilfreds;
+                        feeling = Feeling.Jï¿½vnt_Utilfreds;
                         break;
                     case "5":
                         System.Console.WriteLine("");
